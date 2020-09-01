@@ -221,7 +221,6 @@ export default {
 <style lang="less" scoped>
 .home {
   min-height: 100vh;
-  text-align: center;
 }
 
 .container {
