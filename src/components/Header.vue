@@ -4,17 +4,14 @@
       <section class="h-logo">
         <span>🐝</span>
         <section class="h-logo-text">
-          <h1>MayFly</h1>
-          <p>This is a civilian project</p>
+          <h1>Bee2</h1>
         </section>
       </section>
 
       <nav class="h-nav">
         <router-link :to="{ name: 'Home' }" :class="$route.name === 'Home' && 'active'" >Home</router-link>
-        <router-link :to="{ name: 'Staking' }" :class="$route.name === 'Staking' && 'active'" >Stake</router-link>
+        <router-link :to="{ name: 'Stake' }" :class="$route.name === 'Stake' && 'active'" >Stake</router-link>
         <router-link :to="{ name: 'Voting' }" :class="$route.name === 'Voting' && 'active'" >Vote</router-link>
-        <router-link :to="{ name: 'VisionMission' }" :class="$route.name === 'VisionMission' && 'active'" >Vision - Mission</router-link>
-        <router-link :to="{ name: 'ValueVaults' }" :class="$route.name === 'ValueVaults' && 'active'" >Vaults</router-link>
       </nav>
 
       <section class="h-wallet">

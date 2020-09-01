@@ -2,118 +2,48 @@
   <section class="home theme-dark">
     <Header></Header>
     <section class="container">
-      <p class="h-ol-title">ONLY FOR THOSE WITH LOCKED FUNDS IN YFV POOL 1:</p>
-      <ol class="h-ol">
-        <li>
-          Visit
-          <a href="https://yfv.finance/rescue/staking-pool-v1"
-            >https://yfv.finance/rescue/staking-pool-v1</a
-          >
-          from your PC, using Metamask. mobile wallets and other wallets may
-          have issue with dapp
-        </li>
-        <li>
-          Connect your wallet if it's not connected. Verify by checking if the
-          amount stuck is reflected correctly
-        </li>
-        <li>Press <b>Exit</b></li>
-      </ol>
-      <h3 class="h-title">⛏You have&nbsp;<span>0&nbsp;MayFly</span></h3>
+      <section class="logo">🐝</section>
+      <p class="introduction">Bee2 is ready</p>
+      <h3 class="h-title">🍯 You have&nbsp;<span>123&nbsp;Bee2</span> 🍯</h3>
       <section class="h-total">
         <section class="h-total-block">
-          <div>
-            <p>Total Value Locked (USD)</p>
-            <section class="price">
-              <span>💰</span>
-              <b>$443,434,434,44</b>
-            </section>
+          <div class="p2">
+            <p class="total-title">Your Bee2 Balance</p>
+            <div class="price">
+              <b>12.34</b>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="p1 total">
+            <span></span>
+            <span>0.10 Bee2</span>
           </div>
         </section>
 
         <section class="h-total-block">
-          <div>
-            <p>MayFly Price</p>
-          <section class="price">
-            <span>🦋</span>
-            <section><b>$34.33</b><small>(2323.USDT)</small></section>
-          </section>
+          <div class="p2">
+            <p class="total-title">Total Bee2 Supply</p>
+            <div class="price">
+              <b>443,434,434,44</b>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="p1 total">
+            <span></span>
+            <span>2,000 Bee2</span>
           </div>
         </section>
 
-        <section class="h-total-block">
+        <!-- <section class="h-total-block">
           <div>
-            <section class="price-list"><small>Circulating:</small>&nbsp;<b>12331.32MayFly</b></section>
-          <section class="price-list"><small>Total Supply:</small>&nbsp;<b>12331.32MayFly</b></section>
-          <section class="price-list"><small>Burned:</small>&nbsp;<b>12331.32MayFly</b></section>
+            See more stake&nbsp;➡️
           </div>
-        </section>
+        </section> -->
       </section>
 
-      <h3 class="pools-title">MayFly/Pools</h3>
-      <section class="pools">
-        <el-table :data="poolTableData" style="width: 100%" class="pools">
-          <el-table-column prop="icon" label="" width="75">
-            <template>🦄</template>
-          </el-table-column>
-          <el-table-column prop="pool" label="Pool" width="230">
-            <template>
-              <div>Seed Pool v2</div>
-              <div>USDT, USDC, TUSD, DAI</div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="staked" label="Staked" width="200">
-            <template>
-              <div>
-                0
-                <small></small>
-              </div>
-              <div>
-                <small>of</small>
-                78,463,754.54
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="claimable"
-            label="MayFly Claimable"
-            width="160"
-          >
-            <template>
-              <div>0</div>
-              <div><small>Claimed:</small> 0</div>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="totalValueLocked"
-            label="Total Value Locked	"
-            width="205"
-          >
-            <template>
-              <div>$78,463,754.54</div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="rolInUsd" label="ROI in USD" width="230">
-            <template>
-              <div class="jss81">
-                <span class="jss82">Hourly:</span
-                ><span class="jss83">0.03%</span>
-              </div>
-              <div class="jss81">
-                <span class="jss82">Daily:</span
-                ><span class="jss83">0.66%</span>
-              </div>
-              <div class="jss81">
-                <span class="jss82">Weekly:</span
-                ><span class="jss83">4.64%</span>
-              </div>
-              <div class="jss81">
-                <span class="jss82">APY (unstable):</span
-                ><span class="jss83">242.16%</span>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-      </section>
+      <router-link :to="{name: 'Stake'}" class="h-more">
+        ⛏ See More Stake
+      </router-link>
     </section>
     <Footer></Footer>
   </section>
@@ -126,101 +56,19 @@ export default {
   name: 'Home',
   components: {
     Header,
-    Footer
+    Footer,
   },
   data() {
-    return {
-      poolTableData: [
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-        {
-          icon: '',
-          pool: '',
-          staked: '',
-          claimable: '',
-          totalValueLocked: '',
-          rolInUsd: '',
-        },
-      ],
-    }
+    return {}
   },
 }
 </script>
 
-
 <style lang="less" scoped>
 .home {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -230,32 +78,13 @@ export default {
   max-width: 1100px;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-  margin: 40px auto 3rem;
-}
-
-.h-ol-title {
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-align: center;
-  max-width: 800px;
-}
-.h-ol {
-  max-width: 800px;
-  li {
-    line-height: 1.43;
-    font-weight: 400;
-    letter-spacing: 0.8px;
-    a {
-      color: #fafafa;
-    }
-  }
+  margin: 100px auto 3rem;
 }
 
 .h-title {
-  margin-top: 1rem;
+  margin-top: 80px;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   font-size: 24px;
   font-weight: 600;
   line-height: 1.2;
@@ -271,54 +100,78 @@ export default {
   &-block {
     margin: 10px 15px;
     max-width: 100%;
-    min-width: 250px;
+    min-width: 360px;
     overflow: hidden;
     box-shadow: none;
-    border-radius: 4px;
-    color: #fafafa;
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    background-color: #293746;
-    & > div {
-      padding: 16px;
-      height: 100%;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    border-radius: 10px;
+    color: #fff;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .p1 {
+      padding: 8px 16px;
     }
-    p {
+    .p2 {
+      padding: 16px;
+    }
+    .total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .total-title {
       padding: 0;
       margin: 0;
+      font-size: 16px;
+      line-height: 22px;
     }
     .price {
       display: flex;
       flex-wrap: wrap;
       font-size: 20px;
-      margin-top: 10px;
       align-items: center;
-      line-height: 28px;
+      line-height: 48px;
+      margin-top: 10px;
+      b {
+        font-size: 36px;
+      }
     }
-    .price-list {
-      display: flex;
-      justify-content: space-between;
-      line-height: 22px;
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: #dcdcdc;
     }
   }
 }
 
-.pools-title {
-  color: #fafafa;
-  margin-bottom: .5rem;
-  padding: 0;
-  margin-top: 0;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
+.h-more {
+  color: #fff;
+  text-decoration: none;
+  margin-top: 100px;
+  font-size: 20px;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.pools {
-  max-width: 1100px;
+
+.logo {
+  width: 120px;
+  height: 120px;
+  margin-right: 10px;
+  font-size: 120px;
   margin: 0 auto;
+}
+.introduction {
+  font-family: KaushanScript-Regular;
+  font-size: 40px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  line-height: 60px;
 }
 </style>

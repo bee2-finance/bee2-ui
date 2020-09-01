@@ -11,9 +11,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/staking',
-    name: 'Staking',
-    component: () => import(/* webpackChunkName: "Staking" */ '../views/Staking.vue')
+    path: '/stake',
+    name: 'Stake',
+    component: () => import(/* webpackChunkName: "Stake" */ '../views/Stake.vue')
+  },
+  {
+    path: '/stake/:id',
+    name: 'StakeId',
+    component: () => import(/* webpackChunkName: "StakeId" */ '../views/StakeId.vue')
   },
   {
     path: '/voting',
