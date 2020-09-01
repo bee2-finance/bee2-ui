@@ -9,15 +9,20 @@
 
       <ul class="item">
         <li>
-          <div class="item-logo">
-            🍣
-          </div>
-          <h4 class="item-title">Sushi Party!</h4>
-          <div class="item-des">
-            <p>Bee2 Earned</p>
+          <div>
+            <div class="item-logo">
+              🍣
+            </div>
+            <h4 class="item-title">Sushi Party!</h4>
+            <div class="item-des">
+              <p>Bee2 Earned</p>
+            </div>
           </div>
 
-          <router-link :to="{ name: 'StakeId', params: { id: 1 } }" class="item-btn">
+          <router-link
+            :to="{ name: 'StakeId', params: { id: 1 } }"
+            class="item-btn"
+          >
             Harvest
           </router-link>
         </li>
@@ -30,13 +35,14 @@
             <p>Bee2-ETH UNI-V2 LP Tokens Staked</p>
           </div>
 
-          <router-link :to="{ name: 'StakeId', params: { id: 1 } }" class="item-btn">
+          <router-link
+            :to="{ name: 'StakeId', params: { id: 1 } }"
+            class="item-btn"
+          >
             Approve SUSHI-ETH UNI-V2 LP
           </router-link>
         </li>
       </ul>
-
-      
     </section>
     <Footer></Footer>
   </section>
@@ -52,9 +58,7 @@ export default {
     Footer,
   },
   data() {
-    return {
-
-    }
+    return {}
   },
 }
 </script>
@@ -102,24 +106,21 @@ export default {
   padding: 0;
   display: flex;
   justify-content: center;
-  &::after {
-    display: block;
-    content: "";
-    width: 0;
-    height: 0;
-    clear: both;
-  }
   li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     width: 300px;
+    height: 345px;
     margin: 30px 10px;
-    float: left;
     list-style: none;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
     border: 1px solid transparent;
     border-radius: 10px;
-    transition: all .2s;
+    transition: all 0.2s;
     &:hover {
       // border: 1px solid #fff;
     }
@@ -149,16 +150,20 @@ export default {
     }
 
     .item-btn {
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 56px 0 0 0;
+      min-height: 64px;
       color: #fff;
       text-decoration: none;
       border: 2px solid #808080;
-      padding: 12px 40px;
+      padding: 0 40px;
       box-sizing: border-box;
       border-radius: 20px;
       cursor: pointer;
-      transition: all .3s;
+      transition: all 0.3s;
       &:hover {
         border-color: #fff;
       }
