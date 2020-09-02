@@ -29,7 +29,7 @@
       <!-- connect button -->
       <section class="h-wallet">
         <!-- show account -->
-        <template v-if="$auth.isAuthenticated && !wrongNetwork">
+        <template v-if="$auth.isAuthenticated && !wrongNetwork && web3.account">
           <el-button @click="accountDialogVisible = true">
             <div class="account">
               <Avatar :address="web3.account" size="16" />
@@ -43,7 +43,7 @@
         </el-button>
         <!-- connect wallet -->
         <el-button
-          v-if="showLogin"
+          v-if="showLogin || !web3.account"
           @click="accountDialogVisible = true"
           :loading="loading"
         >
