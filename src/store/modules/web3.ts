@@ -161,7 +161,6 @@ const mutations = {
 const actions = {
   login: async ({ dispatch }, connector = 'injected') => {
     auth = getInstance()
-    console.log('111', auth)
     await auth.login(connector)
     if (auth.provider) {
       web3 = new Web3Provider(auth.provider)

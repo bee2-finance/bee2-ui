@@ -16,9 +16,6 @@ export default {
   computed: {
     ...mapState(modules)
   },
-  created() {
-    console.log('log', config)
-  },
   methods: {
     _shorten(str: string, key: string): string {
       if (key === 'symbol')
