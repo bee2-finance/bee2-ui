@@ -3,7 +3,8 @@ import { getInstance } from '@bonustrack/lock/plugins/vue'
 import { Web3Provider } from '@ethersproject/providers'
 import { Contract } from '@ethersproject/contracts'
 import { getAddress } from '@ethersproject/address'
-import { formatUnits } from '@ethersproject/units'
+import { formatUnits, parseUnits } from '@ethersproject/units'
+import { MaxUint256 } from '@ethersproject/constants'
 import { Interface } from '@ethersproject/abi'
 import store from '@/store'
 import abi from '@/helpers/abi'
@@ -223,6 +224,7 @@ const actions = {
         })
       }
       const network = await web3.getNetwork()
+      console.log('network', network)
       const accounts = await web3.listAccounts()
       const account = accounts.length > 0 ? accounts[0] : null
       commit('LOAD_PROVIDER_SUCCESS', {
@@ -338,11 +340,192 @@ const actions = {
       return Promise.reject()
     }
   },
+  // get balanceOf
+  balanceOf: async ({ commit }, { contract, abiName, account }) => {
+    try {
+      const multi = new Contract(contract, abi[abiName], rpcProvider)
+
+      let response = await multi.balanceOf(account)
+
+      console.log('response', response)
+
+      let balance = parseFloat(formatUnits(response.toString(), 18))
+
+      return balance
+    } catch (e) {
+      commit('GET_BALANCE_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // get earned
+  earned: async ({ commit }, { contract, abiName, account }) => {
+    try {
+      const multi = new Contract(contract, abi[abiName], rpcProvider)
+      let response = await multi.earned(account)
+
+      console.log('response', response)
+
+      let balance = parseFloat(formatUnits(response.toString(), 18))
+
+      return balance
+    } catch (e) {
+      return Promise.reject()
+    }
+  },
+  // get approve state
+  approveState: async ({ commit }, { contract, abiName, account }) => {
+    try {
+
+      console.log('approveState')
+
+      const multi = new Contract(contract, abi[abiName], rpcProvider)
+      console.log('multi', multi)
+
+      let response = await multi.allowance(account, config.multicall)
+
+      console.log('response', response)
+
+      let balance = parseFloat(formatUnits(response.toString(), 18))
+
+      return balance
+    } catch (e) {
+      return Promise.reject()
+    }
+  },
+  // approve
+  approve: async (
+    { commit },
+    {contract, abiName}
+  ) => {
+
+    console.log('MaxUint256.toString()', MaxUint256.toString())
+
+    console.log('parseUnits', parseUnits('100').toString())
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        contract,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      const tx = contractWithSigner.approve(config.multicall, parseUnits('100').toString())
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // stake
+  stake: async (
+    { commit },
+    { abiName, amount}
+  ) => {
+
+    console.log('parseUnits', parseUnits('100').toString())
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        config.multicall,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      let amountStr = amount + ''
+      const tx = contractWithSigner.stake(parseUnits(amountStr).toString())
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // unStake
+  unStake: async (
+    { commit },
+    { abiName, amount}
+  ) => {
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        config.multicall,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      let amountStr = amount + ''
+      const tx = contractWithSigner.withdraw(parseUnits(amountStr).toString())
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // harvest
+  harvest: async (
+    { commit },
+    { abiName}
+  ) => {
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        config.multicall,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      const tx = contractWithSigner.getReward()
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // exit
+  exit: async (
+    { commit },
+    { abiName }
+  ) => {
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        config.multicall,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      const tx = contractWithSigner.exit()
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
   multicall: async ({ commit }, { name, calls, options }) => {
     const multi = new Contract(config.multicall, abi['Multicall'], rpcProvider)
     const itf = new Interface(abi[name])
+
     try {
-      let [, response] = await multi.aggregate(
+      let [, response] = await multi.balanceOf(
         calls.map(call => [
           call[0].toLowerCase(),
           itf.encodeFunctionData(call[1], call[2])

@@ -4,33 +4,29 @@
     <section class="container">
       <section class="logo">🐝</section>
       <p class="introduction">Bee2 is ready</p>
-      <h3 class="h-title">🍯 You have&nbsp;<span>123&nbsp;Bee2</span> 🍯</h3>
+      <h3 class="h-title">🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯</h3>
+      <!-- <h3 class="h-title"></h3> -->
       <section class="h-total">
         <section class="h-total-block">
           <div class="p2">
-            <p class="total-title">Your Bee2 Balance</p>
+            <p class="total-title">Your BEE Balance</p>
             <div class="price">
-              <b>12.34</b>
+              <b>{{ balance }}</b>
             </div>
           </div>
           <div class="line"></div>
           <div class="p1 total">
-            <span></span>
-            <span>0.10 Bee2</span>
+            <span>Pending harvest</span>
+            <span>{{ pendingHarvest }} BEE</span>
           </div>
         </section>
 
         <section class="h-total-block">
           <div class="p2">
-            <p class="total-title">Total Bee2 Supply</p>
+            <p class="total-title">Total BEE Supply</p>
             <div class="price">
-              <b>443,434,434,44</b>
+              <b>500,000,0</b>
             </div>
-          </div>
-          <div class="line"></div>
-          <div class="p1 total">
-            <span></span>
-            <span>2,000 Bee2</span>
           </div>
         </section>
 
@@ -50,13 +46,62 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import namespaces from '@/namespaces.json'
+
 export default {
   name: 'Home',
   components: {
   },
   data() {
-    return {}
+    return {
+      balance: 0,
+      pendingHarvest: 0,
+    }
   },
+  computed: {
+    ...mapState(['web3'])
+  },
+  watch: {
+    'web3.account': {
+      deep: true,
+      handler(val) {
+        if (val) {
+          this.getDataFunc()
+        }
+      }
+    }
+  },
+  mounted() {
+    this.getDataFunc()
+  },
+  methods: {
+    ...mapActions(['init', 'getBalance', 'balanceOf', 'earned']),
+
+    async getDataFunc() {
+      // bee balance
+      if (!this.web3.account) return
+      let balance = await this.balanceOf({
+        contract: namespaces.bee.address,
+        abiName: 'YAMETHPool',
+        account: this.web3.account,
+      })
+      console.log('balance', balance)
+      this.balance = balance
+
+      console.log(this.config)
+
+    let earned = await this.earned({
+        contract: this.config.multicall,
+        abiName: 'YAMETHPool',
+        account: this.web3.account,
+      })
+      console.log('earned', earned)
+      this.pendingHarvest = earned
+
+
+    }
+  }
 }
 </script>
 
@@ -105,7 +150,7 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     .p1 {
       padding: 8px 16px;
     }

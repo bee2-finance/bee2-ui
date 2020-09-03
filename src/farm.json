@@ -1,0 +1,22 @@
+{
+  "yycrv": {
+    "icon": "🌺",
+    "name": "Hibiscus",
+    "symbol": "yyCrv"
+  },
+  "yamv2": {
+    "icon": "🌸",
+    "name": "Cherry Blossom",
+    "symbol": "YAMv2"
+  },
+  "ant": {
+    "icon": "🌼",
+    "name": "Daisy",
+    "symbol": "ANT"
+  },
+  "usdt_eth_uni_v2_lp": {
+    "icon": "🌻",
+    "name": "Sunflower",
+    "symbol": "USDT_ETH_UNI_V2_LP"
+  }
+}

@@ -5,25 +5,24 @@
       <section class="logo">🐝</section>
       <p class="introduction">Select A Farm To Stake</p>
 
-      <p class="des">Earn Bee2 tokens by staking Uniswap V2 LP Tokens.</p>
+      <p class="des">Earn BEE tokens by staking Tokens.</p>
 
       <ul class="item">
-        <li v-for="item in 4" :key="item">
+        <li v-for="(item, index) in farm" :key="index">
           <div class="item-logo">
-            🍣
+            {{ item.icon }}
           </div>
-          <h4 class="item-title">Sushi Party!</h4>
+          <h4 class="item-title">{{ item.name }}</h4>
           <div class="item-des">
-            <p>BEE2 BEE2-ETH UNI-V2 LP</p>
-            <p>Earn Bee2</p>
+            <p>Deposit {{ item.symbol.toLocaleUpperCase() }}</p>
+            <p>Earn BEE</p>
           </div>
 
-          <router-link :to="{ name: 'StakeId', params: { id: item } }" class="item-btn">
+          <router-link :to="{ name: 'StakeId', params: { id: item.symbol.toLocaleLowerCase() } }" class="item-btn">
             Farm
           </router-link>
         </li>
       </ul>
-
       
     </section>
     <Footer></Footer>
@@ -31,13 +30,16 @@
 </template>
 
 <script>
+
+import farm from '../farm.json'
+
 export default {
   name: 'Home',
   components: {
   },
   data() {
     return {
-
+      farm: farm
     }
   },
 }

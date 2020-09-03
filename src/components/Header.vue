@@ -123,6 +123,7 @@ export default {
       }
     },
     wrongNetwork() {
+      // console.log('wrongNetwork', this.config, this.web3)
       return this.config.chainId !== this.web3.injectedChainId
     },
     showLogin() {

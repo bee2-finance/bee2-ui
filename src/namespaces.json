@@ -257,5 +257,29 @@
     "min": 1,
     "invalid": [],
     "visible": false
+  },
+  "bee": {
+    "key": "bee",
+    "symbol": "BEE",
+    "name": "Bee2.finance",
+    "defaultView": "all",
+    "address": "0x2FfE61437d65B123eCD04b9161f4C5b44Bb49CEd",
+    "token": "0x2FfE61437d65B123eCD04b9161f4C5b44Bb49CEd",
+    "core": [],
+    "min": 1,
+    "invalid": [],
+    "visible": false
+  },
+  "yycrv": {
+    "key": "yycrv",
+    "symbol": "yyCRV",
+    "name": "yyCurve",
+    "defaultView": "all",
+    "address": "0xBC14c60ADba0625e14C9E43c339E93A0887690Fc",
+    "token": "0xBC14c60ADba0625e14C9E43c339E93A0887690Fc",
+    "core": [],
+    "min": 1,
+    "invalid": [],
+    "visible": false
   }
 }

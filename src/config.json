@@ -1,9 +1,9 @@
 {
   "env": "master",
-  "network": "homestead",
-  "chainId": 1,
+  "network": "rinkeby",
+  "chainId": 4, 
   "subgraphUrl": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer",
-  "multicall": "0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441",
+  "multicall": "0x08bEA01bDA7EAd75496598CD964489D58095D2Ad",
   "connectors": {
     "injected": {
       "id": "injected",

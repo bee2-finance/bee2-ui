@@ -2,60 +2,226 @@
   <section class="staking">
     <Header></Header>
     <section class="container">
-      <section class="logo">🍣</section>
-      <p class="introduction">Sushi party!</p>
+      <section class="logo">
+        {{ farmId.icon }}
+      </section>
+      <p class="introduction">
+        {{ farmId.name }}
+      </p>
 
-      <p class="des">Earn Bee2 tokens by staking Uniswap V2 LP Tokens.</p>
+      <p class="des">Earn BEE tokens by staking {{ farmId.symbol.toLocaleUpperCase() }} Tokens.</p>
 
       <ul class="item">
         <li>
           <div>
-            <div class="item-logo">
-              🍣
-            </div>
-            <h4 class="item-title">Sushi Party!</h4>
+            <div class="item-logo">🍯</div>
+            <h4 class="item-title">{{ earnedVal }}</h4>
             <div class="item-des">
-              <p>Bee2 Earned</p>
+              <p>Bees Earned</p>
             </div>
           </div>
 
-          <router-link
-            :to="{ name: 'StakeId', params: { id: 1 } }"
+          <a
+            href="javascript:;"
             class="item-btn"
+            @click="harvestFunc"
           >
             Harvest
-          </router-link>
+          </a>
         </li>
         <li>
-          <div class="item-logo">
-            🍣
-          </div>
-          <h4 class="item-title">Sushi Party!</h4>
-          <div class="item-des">
-            <p>Bee2-ETH UNI-V2 LP Tokens Staked</p>
+          <div>
+            <div class="item-logo">🐝</div>
+            <h4 class="item-title">{{ stakeVal }}</h4>
+            <div class="item-des">
+              <p>{{ farmId.symbol.toLocaleUpperCase() }} Staked</p>
+            </div>
           </div>
 
-          <router-link
-            :to="{ name: 'StakeId', params: { id: 1 } }"
+          <a
+            href="javascript:;"
             class="item-btn"
+            @click="approveStaked"
           >
-            Approve SUSHI-ETH UNI-V2 LP
-          </router-link>
+          {{ approveValue > 0 ? 'Stake' : 'Approve' }}
+          {{ farmId.symbol.toLocaleUpperCase() }}
+          </a>
+
         </li>
       </ul>
+
+      <!-- <button @click="getDataFunc">getDataFunc</button> -->
+      <!-- <button @click="approveStateFunc">approve state {{ approveValue }} </button> -->
+      <a href="javascript:;" class="other-button" @click="unStakeFunc">Unstake</a>
+      <a href="javascript:;" class="other-button" @click="exitFunc">Harvest & Unstake</a>
+
     </section>
     <Footer></Footer>
   </section>
 </template>
 
 <script>
+import farm from '../farm.json'
+import { mapActions, mapState } from 'vuex'
+import namespaces from '@/namespaces.json'
+
 export default {
   name: 'Home',
   components: {
   },
   data() {
-    return {}
+    return {
+      farm: farm,
+      approveValue: 0,
+      earnedVal: 0.000,
+      stakeVal: 0.000,
+    }
   },
+  computed: {
+    ...mapState(['web3']),
+    farmId() {
+      return this.farm[this.$route.params.id] || {}
+    }
+  },
+  watch: {
+    'web3.account': {
+      deep: true,
+      handler(val) {
+        if (val) {
+          this.getDataFunc()
+        }
+      }
+    }
+  },
+  mounted() {
+    this.getDataFunc()
+  },
+  methods: {
+    ...mapActions(['earned', 'harvest', 'unStake', 'exit', 'balanceOf', 'approve', 'approveState', 'stake']),
+
+    async getDataFunc() {
+      if (!this.web3.account) return
+
+      // harvest
+      let earnedRes = await this.earned({
+        contract:this.config.multicall,
+        abiName: 'YAMETHPool',
+        account: this.web3.account,
+      })
+      this.earnedVal = earnedRes
+
+      // stake
+      let balanceOfRes = await this.balanceOf({
+          contract: this.config.multicall,
+          abiName: 'YAMETHPool',
+          account: this.web3.account,
+        })
+      this.stakeVal = balanceOfRes
+
+      this.approveStateFunc()
+    },
+    // approve state
+    async approveStateFunc() {
+      if (!this.web3.account) return
+
+      let res = await this.approveState({
+        contract: namespaces.yycrv.address,
+        abiName: 'YAM',
+        account: this.web3.account,
+      })
+
+      console.log('approveValue', res)
+
+      this.approveValue = res
+    },
+
+    // approve stated
+    async approveStaked() {
+      if (this.approveValue > 0) {
+        this.$prompt('', 'Please input amount.', {
+        confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then(({ value }) => {
+          this.stakedFunc(value)
+        }).catch(() => {
+          //        
+        })
+      } else {
+        // approve
+        this.approveFunc()
+      }
+    },
+
+    // approve
+    async approveFunc() {
+      if (!this.web3.account) return
+
+      let res = await this.approve({
+        contract: namespaces.yycrv.address,
+        abiName: 'YAM',
+      })
+      console.log('res', res)
+    },
+    // state
+    async stakedFunc(amount) {
+      if (!this.web3.account) return
+
+      let res = await this.stake({
+        abiName: 'YAMETHPool',
+        amount: amount
+      })
+      console.log('res', res)
+    },
+
+    // user harvest
+    async harvestFunc() {
+      if (this.earnedVal > 0) {
+        if (!this.web3.account) return
+
+        await this.harvest({
+          abiName: 'YAMETHPool',
+        })
+
+        this.approveStateFunc()
+      }
+    },
+    // user unStake
+    async unStakeFunc() {
+      if (this.stakeVal > 0) {
+        if (!this.web3.account) return
+
+        const confirmUnState = async value => {
+          await this.unStake({
+            abiName: 'YAMETHPool',
+            amount: value
+          })
+        }
+
+        this.$prompt('', 'Please input amount.', {
+          confirmButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+          }).then(({ value }) => {
+            confirmUnState(value)
+          }).catch(() => {
+            //        
+          })
+
+        this.approveStateFunc()
+      }
+    },
+    // user exit
+    async exitFunc() {
+      if (this.stakeVal > 0) {
+        if (!this.web3.account) return
+
+        await this.exit({
+          abiName: 'YAMETHPool',
+        })
+
+        this.approveStateFunc()
+      }
+    }
+  }
 }
 </script>
 
@@ -85,8 +251,10 @@ export default {
   width: 120px;
   height: 120px;
   margin-right: 10px;
-  font-size: 120px;
+  font-size: 100px;
   margin: 0 auto;
+  overflow: hidden;
+  text-align: center;
 }
 .introduction {
   font-family: KaushanScript-Regular;
@@ -108,7 +276,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     width: 300px;
-    height: 345px;
+    height: 340px;
     margin: 30px 10px;
     list-style: none;
     text-align: center;
@@ -129,7 +297,7 @@ export default {
     }
 
     .item-title {
-      font-size: 24px;
+      font-size: 30px;
       padding: 0;
       margin: 0;
       margin: 8px 0 0 0;
@@ -164,6 +332,28 @@ export default {
         border-color: #fff;
       }
     }
+  }
+}
+
+
+.other-button {
+  width: 50%;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto 0;
+  min-height: 64px;
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid #808080;
+  padding: 0 40px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    border-color: #fff;
   }
 }
 </style>

@@ -26,16 +26,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "Voting" */ '../views/Voting.vue')
   },
   {
-    path: '/vision-mission',
-    name: 'VisionMission',
-    component: () => import(/* webpackChunkName: "VisionMission" */ '../views/VisionMission.vue')
-  },
-  {
-    path: '/value-vaults',
-    name: 'ValueVaults',
-    component: () => import(/* webpackChunkName: "ValueVaults" */ '../views/ValueVaults.vue')
-  },
-  {
     path: '/value',
     name: 'About',
     // route level code-splitting
