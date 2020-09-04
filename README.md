@@ -1,4 +1,4 @@
-# mayfly-ui
+# bee2-ui
 
 ## Project setup
 ```

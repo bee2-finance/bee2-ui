@@ -1,5 +1,5 @@
 {
-  "name": "mayfly-ui",
+  "name": "bee2-ui",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -57,6 +57,6 @@
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   },
-  "_id": "mayfly-ui@0.1.0",
+  "_id": "bee2-ui@0.1.0",
   "readme": "ERROR: No README data found!"
 }
