@@ -2,8 +2,10 @@
   <section class="home theme-dark">
     <Header></Header>
     <section class="container">
-      <section class="logo">🐝</section>
-      <p class="introduction">Bee2 is ready</p>
+      <Bee />
+      <!-- <beehive /> -->
+      <!-- <section class="logo">🐝</section> -->
+      <!-- <p class="introduction">Bee2 is ready</p> -->
       <h3 class="h-title">
         <!-- 🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯 -->
       </h3>
@@ -43,6 +45,7 @@
         ⛏ See More Stake
       </router-link>
     </section>
+    <Landtree />
     <Footer></Footer>
   </section>
 </template>
@@ -50,10 +53,14 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import namespaces from '@/namespaces.json'
+import Bee from '@/components/bee'
+import Landtree from '@/components/Landtree'
 
 export default {
   name: 'Home',
   components: {
+    Bee,
+    Landtree
   },
   data() {
     return {
@@ -121,7 +128,7 @@ export default {
   max-width: 1100px;
   align-items: center;
   flex-direction: column;
-  margin: 100px auto 3rem;
+  margin: 50px auto 3rem;
 }
 
 .h-title {
@@ -147,10 +154,10 @@ export default {
     overflow: hidden;
     box-shadow: none;
     border-radius: 10px;
-    color: #fff;
+    color: #001f3f;
     border-radius: 20px;
-    box-shadow:  -7px 7px 23px #220e45, 
-             7px -7px 23px #36166d;
+    box-shadow:  5px 5px 10px #a9ccc8, 
+             -5px -5px 10px #bbe2dd;
     // border: 1px solid #fff;
     box-sizing: border-box;
     display: flex;
@@ -195,9 +202,9 @@ export default {
 }
 
 .h-more {
-  color: #fff;
+  color: #001f3f;
   text-decoration: none;
-  margin-top: 100px;
+  margin-top: 20px;
   font-size: 20px;
   &:hover {
     text-decoration: underline;

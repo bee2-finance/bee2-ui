@@ -2,10 +2,13 @@
   <section class="staking">
     <Header></Header>
     <section class="container">
-      <section class="logo">🐝</section>
-      <p class="introduction">select a garden.</p>
+      <section class="logo">
+      <honey />
+      </section>
+      <!-- <section class="logo">🐝</section> -->
+      <p class="introduction">select a garden and earn BEE🐝.</p>
 
-      <p class="des">Earn BEE tokens by staking Tokens.</p>
+      <!-- <p class="des">Earn BEE tokens by staking Tokens.</p> -->
 
       <ul class="item">
         <li v-for="(item, index) in farm" :key="index">
@@ -32,10 +35,12 @@
 <script>
 
 import farm from '../farm.json'
+import honey from '@/components/honey'
 
 export default {
   name: 'Home',
   components: {
+    honey
   },
   data() {
     return {
@@ -58,7 +63,7 @@ export default {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 100px auto 3rem;
+  margin: 50px auto 3rem;
 }
 .des {
   font-size: 16px;
@@ -68,19 +73,17 @@ export default {
 }
 
 .logo {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-  font-size: 100px;
-  margin: 0 auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 .introduction {
   // font-family: KaushanScript-Regular;
-  font-size: 40px;
+  font-size: 30px;
   padding: 0;
   margin: 0;
   text-align: center;
-  line-height: 60px;
+  line-height: 30px;
 }
 
 .item {
@@ -101,8 +104,8 @@ export default {
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    box-shadow:  -7px 7px 23px #220e45, 
-             7px -7px 23px #36166d;
+    box-shadow:  5px 5px 10px #a9ccc8, 
+             -5px -5px 10px #bbe2dd;
     border-radius: 20px;
     transition: all .2s;
     &:hover {
@@ -136,7 +139,7 @@ export default {
     .item-btn {
       display: inline-block;
       margin: 40px 0 0 0;
-      color: #fff;
+      color: #001f3f;
       text-decoration: none;
       border: 2px solid #808080;
       padding: 12px 40px;
@@ -145,7 +148,7 @@ export default {
       cursor: pointer;
       transition: all .3s;
       &:hover {
-        border-color: #fff;
+        border-color: #001f3f;
       }
     }
   }

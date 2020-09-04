@@ -74,7 +74,7 @@
     text-decoration: none;
     &:hover {
       text-decoration: underline;
-      color: #fff;
+      color: #001f3f;
     }
     img {
       height: 24px;

@@ -190,10 +190,10 @@ export default {
       font-size: 1.3em;
       font-weight: 700;
       letter-spacing: 0.3px;
-      color: #fff;
+      color: #001f3f;
     }
     p {
-      color: #fff;
+      color: #001f3f;
       margin: 0;
       padding: 0;
     }
@@ -203,14 +203,15 @@ export default {
     display: flex;
     flex-wrap: wrap;
     a {
-      color: #c4c4c4;
+      color: #071F3D;
       margin: 0 15px;
       display: inline-flex;
       align-items: center;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       &.active {
-        color: #ffffff;
+        color: #618a22;
+        font-size: 800;
       }
     }
   }
@@ -218,7 +219,7 @@ export default {
     min-width: 270px;
     text-align: right;
     button {
-      color: #fafafa;
+      color: #001f3f;
       // box-shadow: #17191b 4px 4px 8px, rgb(20 28 37) -8px -8px 16px;
       background-color: rgba(154, 154, 154, 0.2);
       padding: 10px 24px;

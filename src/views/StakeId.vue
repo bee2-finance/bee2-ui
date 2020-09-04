@@ -2,9 +2,9 @@
   <section class="staking">
     <Header></Header>
     <section class="container">
-      <section class="logo">
+      <!-- <section class="logo">
         {{ farmId.icon }}
-      </section>
+      </section> -->
       <p class="introduction">
         {{ farmId.name }}
       </p>
@@ -14,24 +14,7 @@
       <ul class="item">
         <li>
           <div>
-            <div class="item-logo">🍯</div>
-            <h4 class="item-title">{{ earnedVal }}</h4>
-            <div class="item-des">
-              <p>Bees Earned</p>
-            </div>
-          </div>
-
-          <a
-            href="javascript:;"
-            class="item-btn"
-            @click="harvestFunc"
-          >
-            Harvest
-          </a>
-        </li>
-        <li>
-          <div>
-            <div class="item-logo">🐝</div>
+            <div class="item-logo">{{ farmId.icon }}</div>
             <h4 class="item-title">{{ stakeVal }}</h4>
             <div class="item-des">
               <p>{{ farmId.symbol.toLocaleUpperCase() }} Staked</p>
@@ -46,7 +29,40 @@
           {{ approveValue > 0 ? 'Stake' : 'Approve' }}
           {{ farmId.symbol.toLocaleUpperCase() }}
           </a>
+        </li>
+        <li>
+          <div>
+            <div class="item-logo">🐝</div>
+            <h4 class="item-title">{{ earnedVal }}</h4>
+            <div class="item-des">
+              <p>BEEs Earned</p>
+            </div>
+          </div>
 
+          <a
+            href="javascript:;"
+            class="item-btn"
+            @click="harvestFunc"
+          >
+            Harvest
+          </a>
+        </li>
+        <li>
+          <div>
+            <div class="item-logo">🍯</div>
+            <h4 class="item-title">{{ earnedVal }}</h4>
+            <div class="item-des">
+              <p>HONEY Earned</p>
+            </div>
+          </div>
+
+          <a
+            href="javascript:;"
+            class="item-btn"
+            @click="harvestFunc"
+          >
+            Harvest
+          </a>
         </li>
       </ul>
 
@@ -238,7 +254,7 @@ export default {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 100px auto 3rem;
+  margin: 50px auto 3rem;
 }
 .des {
   font-size: 16px;
@@ -282,7 +298,10 @@ export default {
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    border: 1px solid transparent;
+    box-shadow:  5px 5px 10px #a9ccc8, 
+             -5px -5px 10px #bbe2dd;
+    border-radius: 20px;
+    // border: 1px solid transparent;
     border-radius: 10px;
     transition: all 0.2s;
     &:hover {
@@ -320,7 +339,7 @@ export default {
       justify-content: center;
       margin: 56px 0 0 0;
       min-height: 64px;
-      color: #fff;
+      color: #001f3f;
       text-decoration: none;
       border: 2px solid #808080;
       padding: 0 40px;
@@ -329,7 +348,7 @@ export default {
       cursor: pointer;
       transition: all 0.3s;
       &:hover {
-        border-color: #fff;
+        border-color: #001f3f;
       }
     }
   }
@@ -344,7 +363,7 @@ export default {
   justify-content: center;
   margin: 20px auto 0;
   min-height: 64px;
-  color: #fff;
+  color: #001f3f;
   text-decoration: none;
   border: 2px solid #808080;
   padding: 0 40px;
@@ -353,7 +372,7 @@ export default {
   cursor: pointer;
   transition: all 0.3s;
   &:hover {
-    border-color: #fff;
+    border-color: #001f3f;
   }
 }
 </style>
