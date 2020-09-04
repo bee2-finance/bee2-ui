@@ -18,7 +18,7 @@
         <router-link
           :to="{ name: 'Stake' }"
           :class="$route.name === 'Stake' && 'active'"
-          >Stake</router-link
+          >Garden</router-link
         >
         <router-link
           :to="{ name: 'Voting' }"
@@ -219,15 +219,15 @@ export default {
     text-align: right;
     button {
       color: #fafafa;
-      box-shadow: #17191b 4px 4px 8px, rgb(20 28 37) -8px -8px 16px;
+      // box-shadow: #17191b 4px 4px 8px, rgb(20 28 37) -8px -8px 16px;
       background-color: rgba(154, 154, 154, 0.2);
       padding: 10px 24px;
       font-size: 0.875rem;
       min-width: 64px;
       box-sizing: border-box;
-      transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      // transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      //   box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      //   border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       font-family: "Open Sans", Roboto, Arial, sans-serif;
       font-weight: 500;
       line-height: 1.75;

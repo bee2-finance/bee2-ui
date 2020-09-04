@@ -3,7 +3,7 @@
     <Header></Header>
     <section class="container">
       <section class="logo">🐝</section>
-      <p class="introduction">Select A Farm To Stake</p>
+      <p class="introduction">select a garden.</p>
 
       <p class="des">Earn BEE tokens by staking Tokens.</p>
 
@@ -19,7 +19,7 @@
           </div>
 
           <router-link :to="{ name: 'StakeId', params: { id: item.symbol.toLocaleLowerCase() } }" class="item-btn">
-            Farm
+            Select
           </router-link>
         </li>
       </ul>
@@ -68,14 +68,14 @@ export default {
 }
 
 .logo {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   margin-right: 10px;
-  font-size: 120px;
+  font-size: 100px;
   margin: 0 auto;
 }
 .introduction {
-  font-family: KaushanScript-Regular;
+  // font-family: KaushanScript-Regular;
   font-size: 40px;
   padding: 0;
   margin: 0;
@@ -94,15 +94,16 @@ export default {
     clear: both;
   }
   li {
-    width: calc(33.333% - 20px);
-    margin: 30px 10px;
+    width: 260px;
+    margin: 20px 20px;
     float: left;
     list-style: none;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    border: 1px solid transparent;
-    border-radius: 10px;
+    box-shadow:  -7px 7px 23px #220e45, 
+             7px -7px 23px #36166d;
+    border-radius: 20px;
     transition: all .2s;
     &:hover {
       // border: 1px solid #fff;
@@ -134,7 +135,7 @@ export default {
 
     .item-btn {
       display: inline-block;
-      margin: 56px 0 0 0;
+      margin: 40px 0 0 0;
       color: #fff;
       text-decoration: none;
       border: 2px solid #808080;

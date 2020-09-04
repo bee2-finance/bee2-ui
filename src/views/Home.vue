@@ -4,7 +4,9 @@
     <section class="container">
       <section class="logo">🐝</section>
       <p class="introduction">Bee2 is ready</p>
-      <h3 class="h-title">🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯</h3>
+      <h3 class="h-title">
+        <!-- 🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯 -->
+      </h3>
       <!-- <h3 class="h-title"></h3> -->
       <section class="h-total">
         <section class="h-total-block">
@@ -25,7 +27,7 @@
           <div class="p2">
             <p class="total-title">Total BEE Supply</p>
             <div class="price">
-              <b>500,000,0</b>
+              <b>5,000,000</b>
             </div>
           </div>
         </section>
@@ -146,7 +148,10 @@ export default {
     box-shadow: none;
     border-radius: 10px;
     color: #fff;
-    border: 1px solid #fff;
+    border-radius: 20px;
+    box-shadow:  -7px 7px 23px #220e45, 
+             7px -7px 23px #36166d;
+    // border: 1px solid #fff;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -184,7 +189,7 @@ export default {
     .line {
       width: 100%;
       height: 1px;
-      background-color: #dcdcdc;
+      background-color: #36166d;
     }
   }
 }
