@@ -17,14 +17,14 @@
   <div class='tree' style='left: 85%; bottom: 85%; z-index: 15; zoom: 0.24'></div>
   <div class='tree' style='left: 78%; bottom: 84%; z-index: 16; zoom: 0.256'></div>
   <div class='tree' style='left: 0%; bottom: 8%; z-index: 92; zoom: 1.4720000000000002'></div>
-  <div class='tree' style='left: 20%; bottom: 4%; z-index: 96; zoom: 1.536'></div>
+  <!-- <div class='tree' style='left: 20%; bottom: 4%; z-index: 96; zoom: 1.536'></div> -->
   <div class='tree' style='left: 22%; bottom: 42%; z-index: 58; zoom: 0.9279999999999999'></div>
-  <div class='tree' style='left: 0%; bottom: 10%; z-index: 95; zoom: 1.52'></div>
+  <!-- <div class='tree' style='left: 0%; bottom: 10%; z-index: 95; zoom: 1.52'></div> -->
   <div class='tree' style='left: 75%; bottom: 62%; z-index: 38; zoom: 0.6080000000000001'></div>
   <div class='tree' style='left: 11%; bottom: 52%; z-index: 48; zoom: 0.768'></div>
   <div class='tree' style='left: 71%; bottom: 61%; z-index: 39; zoom: 0.6240000000000001'></div>
   <div class='tree' style='left: 75%; bottom: 44%; z-index: 56; zoom: 0.8960000000000001'></div>
-  <div class='tree' style='left: 78%; bottom: 4%; z-index: 99; zoom: 1.584'></div>
+  <div class='tree' style='left: 78%; bottom: 10%; z-index: 99; zoom: 1.584'></div>
   <div class='tree' style='left: 48%; bottom: 21%; z-index: 79; zoom: 1.2640000000000002'></div>
   <div class='tree' style='left: 94%; bottom: 13%; z-index: 87; zoom: 1.3920000000000001'></div>
   <div class='tree' style='left: 13%; bottom: 26%; z-index: 74; zoom: 1.184'></div>
@@ -52,7 +52,7 @@
   <div class='tree' style='left: 3%; bottom: 77%; z-index: 23; zoom: 0.36800000000000005'></div>
   <div class='tree' style='left: 26%; bottom: 54%; z-index: 46; zoom: 0.7360000000000001'></div>
   <div class='tree' style='left: 55%; bottom: 9%; z-index: 91; zoom: 1.4560000000000002'></div>
-  <div class='tree' style='left: 58%; bottom: 12%; z-index: 100; zoom: 1.6'></div>
+  <div class='tree' style='left: 58%; bottom: 10%; z-index: 100; zoom: 1.6'></div>
   <div class='tree' style='left: 24%; bottom: 90%; z-index: 10; zoom: 0.16000000000000003'></div>
   <div class='tree' style='left: 81%; bottom: 26%; z-index: 74; zoom: 1.184'></div>
   <div class='tree' style='left: 66%; bottom: 21%; z-index: 79; zoom: 1.2640000000000002'></div>

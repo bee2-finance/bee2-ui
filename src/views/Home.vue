@@ -129,6 +129,7 @@ export default {
   align-items: center;
   flex-direction: column;
   margin: 50px auto 3rem;
+  z-index: 12;
 }
 
 .h-title {

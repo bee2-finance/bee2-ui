@@ -62,6 +62,7 @@
 .footer {
   width: 100%;
   padding: 2rem 0 0.5rem;
+  z-index: 10;
   .footer-link {
     width: 100%;
     display: flex;
