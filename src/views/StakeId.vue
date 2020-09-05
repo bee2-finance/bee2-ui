@@ -92,9 +92,9 @@ export default {
     return {
       farm: farm,
       approveValue: 0,
-      stakeVal: '0.000',
-      earnedVal: '0.000',
-      honeyVal: '0.000',
+      stakeVal: '0.0000',
+      earnedVal: '0.0000',
+      honeyVal: '0.0000',
     }
   },
   computed: {
@@ -141,7 +141,7 @@ export default {
 
 
     formatUnit(unit) {
-      return unit === 0 ? '0.000' : unit 
+      return unit === 0 ? '0.0000' : unit 
     },
     formatUnitBalance(val) {
       return formatUnitBalance(val)

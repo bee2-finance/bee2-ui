@@ -66,5 +66,5 @@ export function formatProposals(proposals) {
 }
 
 export function formatUnitBalance(val) {
-  return Number.isInteger(val) ? val : val.toFixed(4)
+  return Number.isInteger(val) ? val : Number(val).toFixed(4)
 }

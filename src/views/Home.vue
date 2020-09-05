@@ -81,10 +81,10 @@ export default {
   },
   data() {
     return {
-      balance: 0,
-      balanceHoney: 0,
-      pendingHarvest: 0,
-      pendingHarvestHoney: 0,
+      balance: '0.0000',
+      balanceHoney: '0.0000',
+      pendingHarvest: '0.0000',
+      pendingHarvestHoney: '0.0000',
     }
   },
   computed: {
@@ -108,7 +108,7 @@ export default {
     ...mapActions(['init', 'getBalance', 'getEarnedHoney', 'balanceOf', 'earned']),
 
     formatUnit(unit) {
-      return unit === 0 ? '0.000' : unit 
+      return unit === 0 ? '0.0000' : unit 
     },
 
     formatUnitBalance(val) {
