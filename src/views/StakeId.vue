@@ -42,6 +42,7 @@
           <a
             href="javascript:;"
             class="item-btn"
+            :disabled="earnedVal <= 0"
             @click="harvestFunc"
           >
             Harvest
@@ -59,6 +60,7 @@
           <a
             href="javascript:;"
             class="item-btn"
+            :disabled="honeyVal <= 0"
             @click="harvestHoneyFunc"
           >
             Harvest
@@ -68,8 +70,16 @@
 
       <!-- <button @click="getDataFunc">getDataFunc</button> -->
       <!-- <button @click="approveStateFunc">approve state {{ approveValue }} </button> -->
-      <a href="javascript:;" class="other-button" @click="unStakeFunc">Unstake</a>
-      <a href="javascript:;" class="other-button" @click="exitFunc">Harvest & Unstake</a>
+      <a 
+        href="javascript:;" 
+        class="other-button" 
+        :disabled="stakeVal <= 0"
+        @click="unStakeFunc">Unstake</a>
+      <a 
+        href="javascript:;"
+        class="other-button"
+        :disabled="(stakeVal <= 0) || (earnedVal <= 0) || (honeyVal <= 0)"
+        @click="exitFunc">Harvest & Unstake</a>
 
     </section>
     <Footer></Footer>
@@ -95,6 +105,7 @@ export default {
       stakeVal: '0.0000',
       earnedVal: '0.0000',
       honeyVal: '0.0000',
+      timer: null
     }
   },
   computed: {
@@ -130,6 +141,16 @@ export default {
   },
   mounted() {
     this.getDataFunc()
+    
+    // keep polling
+    this.timer = setInterval(() => {
+      if (this.web3.account) {
+        this.getDataFunc()
+      }
+    }, 5000)
+  },
+  destroyed() {
+    clearInterval(this.timer)
   },
   methods: {
     ...mapActions([
@@ -149,6 +170,8 @@ export default {
 
     async getDataFunc() {
       if (!this.web3.account) return
+
+      this.approveStateFunc()
 
       // stake
       let balanceOfRes = await this.balanceOf({
@@ -174,7 +197,6 @@ export default {
       })
       this.honeyVal = this.formatUnit(honeyRes)
 
-      this.approveStateFunc()
     },
     // approve state
     async approveStateFunc() {
@@ -247,7 +269,7 @@ export default {
     },
     // user harvest
     async harvestHoneyFunc() {
-      if (this.earnedVal > 0) {
+      if (this.honeyVal > 0) {
         if (!this.web3.account) return
 
         await this.harvestHoney({
@@ -285,7 +307,7 @@ export default {
     },
     // user exit
     async exitFunc() {
-      if (this.stakeVal > 0) {
+      if (this.stakeVal > 0 && this.earnedVal && this.honeyVal > 0) {
         if (!this.web3.account) return
 
         await this.exit({
@@ -409,6 +431,11 @@ export default {
       &:hover {
         background: #a0c2bd;
       }
+      &[disabled] {
+        background-color: #b0d2cd;
+        color: rgb(128 128 128);
+        cursor: not-allowed;
+      }
     }
   }
 }
@@ -432,6 +459,11 @@ export default {
   transition: all 0.3s;
   &:hover {
     background: #a0c2bd;
+  }
+  &[disabled] {
+    background-color: #b0d2cd;
+    color: rgb(128 128 128);
+    cursor: not-allowed;
   }
 }
 @media screen and (max-width: 900px) {
