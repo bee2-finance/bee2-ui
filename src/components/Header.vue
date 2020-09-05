@@ -317,8 +317,17 @@ export default {
   font-weight: 500;
 }
 
-
 .text-red {
   color: #ff3856;
+}
+@media screen and (max-width: 800px) {
+  .header {
+    .h-logo {
+      min-width:inherit;
+    }
+    .h-wallet {
+      min-width: inherit;
+    }
+  }
 }
 </style>

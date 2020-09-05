@@ -375,4 +375,11 @@ export default {
     border-color: #001f3f;
   }
 }
+@media screen and (max-width: 900px) {
+  ul.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 </style>
