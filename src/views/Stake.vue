@@ -141,14 +141,17 @@ export default {
       margin: 40px 0 0 0;
       color: #001f3f;
       text-decoration: none;
-      border: 2px solid #808080;
       padding: 12px 40px;
       box-sizing: border-box;
-      border-radius: 20px;
+      background: linear-gradient(145deg, #bee6e1, #a0c2bd);
+      box-shadow:  5px 5px 4px #a4c6c1, 
+             -5px -5px 4px #c0e8e3;
+      // border: 2px solid #808080;
+      border-radius: 10px;
       cursor: pointer;
       transition: all .3s;
       &:hover {
-        border-color: #001f3f;
+        box-shadow: none;
       }
     }
   }
