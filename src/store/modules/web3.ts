@@ -392,11 +392,26 @@ const actions = {
   // get approve state
   approveState: async ({ commit }, { contract, abiName, account, poolContract }) => {
     try {
-
       const multi = new Contract(contract, abi[abiName], rpcProvider)
       let response = await multi.allowance(account, poolContract)
 
       console.log('approveState', response)
+
+      let balance = parseFloat(formatUnits(response.toString(), 18))
+
+      return balance
+    } catch (e) {
+      console.log('e', e)
+      return Promise.reject()
+    }
+  },
+  // get totalSupply
+  totalSupply: async ({ commit }, { contract, abiName }) => {
+    try {
+      const multi = new Contract(contract, abi[abiName], rpcProvider)
+      let response = await multi.totalSupply()
+
+      console.log('totalSupply', response)
 
       let balance = parseFloat(formatUnits(response.toString(), 18))
 

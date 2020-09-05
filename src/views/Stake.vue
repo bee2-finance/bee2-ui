@@ -6,12 +6,12 @@
       <honey />
       </section>
       <!-- <section class="logo">🐝</section> -->
-      <p class="introduction">select a garden and earn BEE🐝.</p>
+      <p class="introduction">select a garden and earn BEE 🐝.</p>
 
       <!-- <p class="des">Earn BEE tokens by staking Tokens.</p> -->
 
       <ul class="item">
-        <li v-for="(item, index) in farm" :key="index">
+        <li v-for="(item, name, index) in farmList" :key="index">
           <div class="item-logo">
             {{ item.icon }}
           </div>
@@ -24,6 +24,11 @@
           <router-link :to="{ name: 'StakeId', params: { id: item.symbol.toLocaleLowerCase() } }" class="item-btn">
             Select
           </router-link>
+
+          <div class="total">
+            <span>TOTAL STAKED</span>
+            <span>{{ item.totalStaked ? formatUnitBalance(item.totalStaked) : 0 }}</span>
+          </div>
         </li>
         <li>
           <SoonCard />
@@ -40,6 +45,9 @@
 import farm from '../farm.json'
 import honey from '@/components/honey'
 import SoonCard from '@/components/SoonCard'
+import { mapActions, mapState } from 'vuex'
+import contract from '@/contract.json'
+import { formatUnitBalance } from '@/helpers/utils'
 
 export default {
   name: 'Home',
@@ -49,9 +57,46 @@ export default {
   },
   data() {
     return {
-      farm: farm
+      farmList: farm,
     }
   },
+  computed: {
+  ...mapState(['web3']),
+  },
+  watch: {
+    'web3.account': {
+      deep: true,
+      handler(val) {
+        if (val) {
+          this.getData()
+        }
+      }
+    }
+  },
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    ...mapActions([
+      'totalSupply'
+    ]),
+    formatUnitBalance(val) {
+      return formatUnitBalance(val)
+    },
+    async getData() {
+      if (!this.web3.account) return
+      let farmList = this.farmList
+      for (const key in farmList) {
+        let res = await this.totalSupply({
+          contract: contract.pool[key].address,
+          abiName: contract.pool[key].symbol,
+        })
+        farmList[key].totalStaked = res
+      }
+      this.farmList = {}
+      this.farmList = farmList
+    }
+  }
 }
 </script>
 
@@ -103,6 +148,7 @@ export default {
   }
   li {
     width: 260px;
+    min-height: 360px;
     margin: 20px 20px;
     float: left;
     list-style: none;
@@ -157,6 +203,22 @@ export default {
       }
     }
   }
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: #a7cac5;
+    color: #333;
+    width: 100%;
+    margin-top: 20px;
+    line-height: 32px;
+    font-size: 12px;
+    border: 1px solid #b4d7d2;
+    text-align: center;
+    padding: 0px 12px;
 }
 @media screen and (max-width: 900px) {
   ul.item {
