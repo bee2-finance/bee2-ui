@@ -25,6 +25,9 @@
             Select
           </router-link>
         </li>
+        <li>
+          <SoonCard />
+        </li>
       </ul>
       
     </section>
@@ -36,11 +39,13 @@
 
 import farm from '../farm.json'
 import honey from '@/components/honey'
+import SoonCard from '@/components/SoonCard'
 
 export default {
   name: 'Home',
   components: {
-    honey
+    honey,
+    SoonCard
   },
   data() {
     return {
