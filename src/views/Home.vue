@@ -15,13 +15,27 @@
           <div class="p2">
             <p class="total-title">Your BEE Balance</p>
             <div class="price">
-              <b>{{ balance }}</b>
+              <b>{{ formatUnitBalance(balance) }}</b>
             </div>
           </div>
           <div class="line"></div>
           <div class="p1 total">
             <span>Pending harvest</span>
-            <span>{{ pendingHarvest }} BEE</span>
+            <span>{{ formatUnitBalance(pendingHarvest) }} BEE</span>
+          </div>
+        </section>
+
+        <section class="h-total-block">
+          <div class="p2">
+            <p class="total-title">Your HONEY Balance</p>
+            <div class="price">
+              <b>{{ formatUnitBalance(balanceHoney) }}</b>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="p1 total">
+            <span>Pending harvest</span>
+            <span>{{ formatUnitBalance(pendingHarvestHoney) }} HONEY</span>
           </div>
         </section>
 
@@ -52,9 +66,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import namespaces from '@/namespaces.json'
 import Bee from '@/components/bee'
 import Landtree from '@/components/Landtree'
+import contract from '@/contract.json'
+import { formatUnitBalance } from '@/helpers/utils'
+
+console.log('contract', contract)
 
 export default {
   name: 'Home',
@@ -65,11 +82,14 @@ export default {
   data() {
     return {
       balance: 0,
+      balanceHoney: 0,
       pendingHarvest: 0,
+      pendingHarvestHoney: 0,
     }
   },
   computed: {
-    ...mapState(['web3'])
+    ...mapState(['web3']),
+        // get address to route params
   },
   watch: {
     'web3.account': {
@@ -85,29 +105,67 @@ export default {
     this.getDataFunc()
   },
   methods: {
-    ...mapActions(['init', 'getBalance', 'balanceOf', 'earned']),
+    ...mapActions(['init', 'getBalance', 'getEarnedHoney', 'balanceOf', 'earned']),
+
+    formatUnit(unit) {
+      return unit === 0 ? '0.000' : unit 
+    },
+
+    formatUnitBalance(val) {
+      return formatUnitBalance(val)
+    },
+
+    async harvestBeeSum() {
+      let sum = 0
+      for (const key in contract.pool) {
+        let earnedRes = await this.earned({
+          contract: contract.pool[key].address,
+          abiName: contract.pool[key].symbol,
+          account: this.web3.account,
+        })
+        sum += Number(earnedRes)
+      }
+      return sum
+    },
+    async harvestHoneySum() {
+      let sum = 0
+      for (const key in contract.pool) {
+        let earnedRes = await this.getEarnedHoney({
+          contract: contract.pool[key].address,
+          abiName: contract.pool[key].symbol,
+          account: this.web3.account,
+        })
+        sum += Number(earnedRes)
+      }
+      return sum
+    },
 
     async getDataFunc() {
       // bee balance
       if (!this.web3.account) return
       let balance = await this.balanceOf({
-        contract: namespaces.bee.address,
-        abiName: 'YAMETHPool',
+        contract: contract.harvest.bee.address,
+        abiName: 'ERC20',
         account: this.web3.account,
       })
       console.log('balance', balance)
-      this.balance = balance
+      this.balance = this.formatUnit(balance)
 
-      console.log(this.config)
-
-    let earned = await this.earned({
-        contract: this.config.multicall,
-        abiName: 'YAMETHPool',
+      let balanceHoney = await this.balanceOf({
+        contract: contract.harvest.honey.address,
+        abiName: 'ERC20',
         account: this.web3.account,
       })
-      console.log('earned', earned)
-      this.pendingHarvest = earned
+      console.log('balanceHoney', balanceHoney)
+      this.balanceHoney = this.formatUnit(balanceHoney)
 
+      // harvest bee
+      let pendingHarvest = await this.harvestBeeSum()
+      this.pendingHarvest = this.formatUnit(pendingHarvest)
+
+      // harvest honey
+      let pendingHarvestHoney = await this.harvestHoneySum()
+      this.pendingHarvestHoney = this.formatUnit(pendingHarvestHoney)
 
     }
   }

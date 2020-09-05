@@ -1,0 +1,48 @@
+{
+  "stake": {
+    "weth": {
+      "symbol": "WETH",
+      "address": "0xC83C377D9d0f0D38d717D7Bd71b058025B7b1b34"
+    },
+    "link": {
+      "symbol": "LINK",
+      "address": "0xA6B101BAA749585145c75582914ce871f8D48397"
+    },
+    "yamv2": {
+      "symbol": "YAMv2",
+      "address": "0x0a8f35C7fe60D6716a96b122A685932E4A37f9F7"
+    },
+    "ant": {
+      "symbol": "ANT",
+      "address": "0xA4A0A373466787c4498Fe4a687ba59F30445a2E6"
+    }
+  },
+  "harvest": {
+    "bee": {
+      "symbol": "BEE",
+      "address": "0x2FfE61437d65B123eCD04b9161f4C5b44Bb49CEd"
+    },
+    "honey": {
+      "symbol": "HONEY",
+      "address": "0x3d3eF5Dff46A03a35b7522287eaF5D0CE57cB5B6"
+    }
+  },
+  "pool": {
+    "weth": {
+      "symbol": "BEEETHPool",
+      "address": "0xE7Bc2b68DA69A189DDAFcE8b118a213671ceA25D"
+    },
+    "link": {
+      "symbol": "BEELINKPool",
+      "address": "0x607E64634DD0D9909AC89d57099b05Ab17B91D03"
+    },
+    "yamv2": {
+      "symbol": "BEEYAMv2Pool",
+      "address": "0x91D9838EBF8d3ebACa1B8e55DF81b7b3757A661c"
+    },
+    "ant": {
+      "symbol": "BEEANTPool",
+      "address": "0x5DeA57b4c60313d29467d85712809603303Ea192"
+    }
+  }
+}

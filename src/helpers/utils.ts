@@ -64,3 +64,7 @@ export function formatProposals(proposals) {
     ])
   )
 }
+
+export function formatUnitBalance(val) {
+  return Number.isInteger(val) ? val : val.toFixed(4)
+}

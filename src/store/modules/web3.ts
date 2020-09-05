@@ -13,6 +13,8 @@ import wsProvider from '@/helpers/ws'
 import rpcProvider from '@/helpers/rpc'
 import namespaces from '@/namespaces.json'
 
+console.log('abi', abi)
+
 let auth
 let web3
 
@@ -347,7 +349,7 @@ const actions = {
 
       let response = await multi.balanceOf(account)
 
-      console.log('response', response)
+      console.log('balanceOf', response)
 
       let balance = parseFloat(formatUnits(response.toString(), 18))
 
@@ -363,7 +365,22 @@ const actions = {
       const multi = new Contract(contract, abi[abiName], rpcProvider)
       let response = await multi.earned(account)
 
-      console.log('response', response)
+      console.log('earned', response)
+
+      let balance = parseFloat(formatUnits(response.toString(), 18))
+
+      return balance
+    } catch (e) {
+      return Promise.reject()
+    }
+  },
+  // get earned honey
+  getEarnedHoney: async ({ commit }, { contract, abiName, account }) => {
+    try {
+      const multi = new Contract(contract, abi[abiName], rpcProvider)
+      let response = await multi.earnedHoney(account)
+
+      console.log('getEarnedHoney', response)
 
       let balance = parseFloat(formatUnits(response.toString(), 18))
 
@@ -373,32 +390,53 @@ const actions = {
     }
   },
   // get approve state
-  approveState: async ({ commit }, { contract, abiName, account }) => {
+  approveState: async ({ commit }, { contract, abiName, account, poolContract }) => {
     try {
 
-      console.log('approveState')
-
       const multi = new Contract(contract, abi[abiName], rpcProvider)
-      console.log('multi', multi)
+      let response = await multi.allowance(account, poolContract)
 
-      let response = await multi.allowance(account, config.multicall)
-
-      console.log('response', response)
+      console.log('approveState', response)
 
       let balance = parseFloat(formatUnits(response.toString(), 18))
 
       return balance
     } catch (e) {
+      console.log('e', e)
       return Promise.reject()
     }
   },
   // approve
   approve: async (
     { commit },
-    {contract, abiName}
+    {contract, abiName, poolContract}
   ) => {
 
     console.log('MaxUint256.toString()', MaxUint256.toString())
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        contract,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      const tx = contractWithSigner.approve(poolContract, MaxUint256.toString())
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // stake
+  stake: async (
+    { commit },
+    { contract, abiName, amount}
+  ) => {
 
     console.log('parseUnits', parseUnits('100').toString())
 
@@ -411,34 +449,8 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      const tx = contractWithSigner.approve(config.multicall, parseUnits('100').toString())
-      await tx.wait()
-      commit('SEND_TRANSACTION_SUCCESS')
-      return tx
-    } catch (e) {
-      commit('SEND_TRANSACTION_FAILURE', e)
-      return Promise.reject()
-    }
-  },
-  // stake
-  stake: async (
-    { commit },
-    { abiName, amount}
-  ) => {
-
-    console.log('parseUnits', parseUnits('100').toString())
-
-    commit('SEND_TRANSACTION_REQUEST')
-    try {
-      const signer = web3.getSigner()
-      const contractRes = new Contract(
-        config.multicall,
-        abi[abiName],
-        web3
-      )
-      const contractWithSigner = contractRes.connect(signer)
-      let amountStr = amount + ''
-      const tx = contractWithSigner.stake(parseUnits(amountStr).toString())
+      let amountStr = parseUnits(amount + '').toString()
+      const tx = contractWithSigner.stake(amountStr)
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
@@ -450,20 +462,20 @@ const actions = {
   // unStake
   unStake: async (
     { commit },
-    { abiName, amount}
+    { contract, abiName, amount}
   ) => {
 
     commit('SEND_TRANSACTION_REQUEST')
     try {
       const signer = web3.getSigner()
       const contractRes = new Contract(
-        config.multicall,
+        contract,
         abi[abiName],
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      let amountStr = amount + ''
-      const tx = contractWithSigner.withdraw(parseUnits(amountStr).toString())
+      let amountStr = parseUnits(amount + '').toString()
+      const tx = contractWithSigner.withdraw(amountStr)
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
@@ -475,14 +487,14 @@ const actions = {
   // harvest
   harvest: async (
     { commit },
-    { abiName}
+    { contract, abiName}
   ) => {
 
     commit('SEND_TRANSACTION_REQUEST')
     try {
       const signer = web3.getSigner()
       const contractRes = new Contract(
-        config.multicall,
+        contract,
         abi[abiName],
         web3
       )
@@ -496,17 +508,41 @@ const actions = {
       return Promise.reject()
     }
   },
-  // exit
-  exit: async (
+  // harvest honey
+  harvestHoney: async (
     { commit },
-    { abiName }
+    { contract, abiName}
   ) => {
 
     commit('SEND_TRANSACTION_REQUEST')
     try {
       const signer = web3.getSigner()
       const contractRes = new Contract(
-        config.multicall,
+        contract,
+        abi[abiName],
+        web3
+      )
+      const contractWithSigner = contractRes.connect(signer)
+      const tx = contractWithSigner.getHoney()
+      await tx.wait()
+      commit('SEND_TRANSACTION_SUCCESS')
+      return tx
+    } catch (e) {
+      commit('SEND_TRANSACTION_FAILURE', e)
+      return Promise.reject()
+    }
+  },
+  // exit
+  exit: async (
+    { commit },
+    { contract, abiName }
+  ) => {
+
+    commit('SEND_TRANSACTION_REQUEST')
+    try {
+      const signer = web3.getSigner()
+      const contractRes = new Contract(
+        contract,
         abi[abiName],
         web3
       )

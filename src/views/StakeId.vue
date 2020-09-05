@@ -15,7 +15,7 @@
         <li>
           <div>
             <div class="item-logo">{{ farmId.icon }}</div>
-            <h4 class="item-title">{{ stakeVal }}</h4>
+            <h4 class="item-title">{{ formatUnitBalance(stakeVal) }}</h4>
             <div class="item-des">
               <p>{{ farmId.symbol.toLocaleUpperCase() }} Staked</p>
             </div>
@@ -33,7 +33,7 @@
         <li>
           <div>
             <div class="item-logo">🐝</div>
-            <h4 class="item-title">{{ earnedVal }}</h4>
+            <h4 class="item-title">{{ formatUnitBalance(earnedVal) }}</h4>
             <div class="item-des">
               <p>BEEs Earned</p>
             </div>
@@ -50,16 +50,16 @@
         <li>
           <div>
             <div class="item-logo">🍯</div>
-            <h4 class="item-title">{{ earnedVal }}</h4>
+            <h4 class="item-title">{{ formatUnitBalance(honeyVal) }}</h4>
             <div class="item-des">
-              <p>HONEY Earned</p>
+              <p>HONEYs Earned</p>
             </div>
           </div>
 
           <a
             href="javascript:;"
             class="item-btn"
-            @click="harvestFunc"
+            @click="harvestHoneyFunc"
           >
             Harvest
           </a>
@@ -79,7 +79,10 @@
 <script>
 import farm from '../farm.json'
 import { mapActions, mapState } from 'vuex'
-import namespaces from '@/namespaces.json'
+import contract from '@/contract.json'
+import { formatUnitBalance } from '@/helpers/utils'
+
+console.log('contract', contract)
 
 export default {
   name: 'Home',
@@ -89,14 +92,30 @@ export default {
     return {
       farm: farm,
       approveValue: 0,
-      earnedVal: 0.000,
-      stakeVal: 0.000,
+      stakeVal: '0.000',
+      earnedVal: '0.000',
+      honeyVal: '0.000',
     }
   },
   computed: {
     ...mapState(['web3']),
     farmId() {
       return this.farm[this.$route.params.id] || {}
+    },
+    // get address to route params
+    stakeAddress() {
+      let name = this.$route.params.id
+      return name ? contract.stake[name.toLocaleLowerCase()].address : ''
+    },
+    // get address to route params
+    poolAddress() {
+      let name = this.$route.params.id
+      return name ? contract.pool[name.toLocaleLowerCase()].address : ''
+    },
+    // get abi key to route params
+    poolAbiKey() {
+      let name = this.$route.params.id
+      return name ? contract.pool[name.toLocaleLowerCase()].symbol : ''
     }
   },
   watch: {
@@ -113,26 +132,47 @@ export default {
     this.getDataFunc()
   },
   methods: {
-    ...mapActions(['earned', 'harvest', 'unStake', 'exit', 'balanceOf', 'approve', 'approveState', 'stake']),
+    ...mapActions([
+      'earned', 'harvest', 'unStake',
+      'exit', 'balanceOf', 'approve',
+      'approveState', 'stake', 'getEarnedHoney',
+      'harvestHoney'
+    ]),
+
+
+    formatUnit(unit) {
+      return unit === 0 ? '0.000' : unit 
+    },
+    formatUnitBalance(val) {
+      return formatUnitBalance(val)
+    },
 
     async getDataFunc() {
       if (!this.web3.account) return
 
-      // harvest
-      let earnedRes = await this.earned({
-        contract:this.config.multicall,
-        abiName: 'YAMETHPool',
-        account: this.web3.account,
-      })
-      this.earnedVal = earnedRes
-
       // stake
       let balanceOfRes = await this.balanceOf({
-          contract: this.config.multicall,
-          abiName: 'YAMETHPool',
+          contract: this.poolAddress,
+          abiName: this.poolAbiKey,
           account: this.web3.account,
         })
-      this.stakeVal = balanceOfRes
+      this.stakeVal = this.formatUnit(balanceOfRes)
+
+      // harvest bee
+      let earnedRes = await this.earned({
+        contract: this.poolAddress,
+        abiName: this.poolAbiKey,
+        account: this.web3.account,
+      })
+      this.earnedVal = this.formatUnit(earnedRes)
+
+      // harvest honey
+      let honeyRes = await this.getEarnedHoney({
+        contract: this.poolAddress,
+        abiName: this.poolAbiKey,
+        account: this.web3.account,
+      })
+      this.honeyVal = this.formatUnit(honeyRes)
 
       this.approveStateFunc()
     },
@@ -141,9 +181,10 @@ export default {
       if (!this.web3.account) return
 
       let res = await this.approveState({
-        contract: namespaces.yycrv.address,
-        abiName: 'YAM',
+        contract: this.stakeAddress,
+        abiName: 'ERC20',
         account: this.web3.account,
+        poolContract: this.poolAddress
       })
 
       console.log('approveValue', res)
@@ -173,8 +214,9 @@ export default {
       if (!this.web3.account) return
 
       let res = await this.approve({
-        contract: namespaces.yycrv.address,
-        abiName: 'YAM',
+        contract: this.stakeAddress,
+        abiName: 'ERC20',
+        poolContract: this.poolAddress
       })
       console.log('res', res)
     },
@@ -183,7 +225,8 @@ export default {
       if (!this.web3.account) return
 
       let res = await this.stake({
-        abiName: 'YAMETHPool',
+        contract: this.poolAddress,
+        abiName: this.poolAbiKey,
         amount: amount
       })
       console.log('res', res)
@@ -195,7 +238,21 @@ export default {
         if (!this.web3.account) return
 
         await this.harvest({
-          abiName: 'YAMETHPool',
+          contract: this.poolAddress,
+          abiName: this.poolAbiKey,
+        })
+
+        this.approveStateFunc()
+      }
+    },
+    // user harvest
+    async harvestHoneyFunc() {
+      if (this.earnedVal > 0) {
+        if (!this.web3.account) return
+
+        await this.harvestHoney({
+          contract: this.poolAddress,
+          abiName: this.poolAbiKey,
         })
 
         this.approveStateFunc()
@@ -208,7 +265,8 @@ export default {
 
         const confirmUnState = async value => {
           await this.unStake({
-            abiName: 'YAMETHPool',
+            contract: this.poolAddress,
+            abiName: this.poolAbiKey,
             amount: value
           })
         }
@@ -231,7 +289,8 @@ export default {
         if (!this.web3.account) return
 
         await this.exit({
-          abiName: 'YAMETHPool',
+          contract: this.poolAddress,
+          abiName: this.poolAbiKey,
         })
 
         this.approveStateFunc()
