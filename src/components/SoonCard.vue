@@ -8,6 +8,7 @@
 </template>
 <style lang="less" scoped>
 .card {
+  height: 265px;
     .item-logo {
       width: 80px;
       height: 80px;
@@ -17,7 +18,7 @@
 
     .item-title {
         font-size: 20px;
-        margin: 80px 0 83px;
+        margin-top: 40px;
         padding: 0;
     }
 
