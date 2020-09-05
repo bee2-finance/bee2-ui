@@ -400,14 +400,14 @@ export default {
       min-height: 64px;
       color: #001f3f;
       text-decoration: none;
-      border: 2px solid #808080;
+      box-shadow:  5px 5px 4px #a4c6c1, -1px -1px 12px #c0e8e3;
       padding: 0 40px;
       box-sizing: border-box;
-      border-radius: 20px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s;
       &:hover {
-        border-color: #001f3f;
+        background: #a0c2bd;
       }
     }
   }
@@ -424,14 +424,14 @@ export default {
   min-height: 64px;
   color: #001f3f;
   text-decoration: none;
-  border: 2px solid #808080;
+  box-shadow:  5px 5px 4px #a4c6c1, -1px -1px 12px #c0e8e3;
   padding: 0 40px;
   box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s;
   &:hover {
-    border-color: #001f3f;
+    background: #a0c2bd;
   }
 }
 @media screen and (max-width: 900px) {
