@@ -274,7 +274,7 @@ export default {
   justify-content: center;
   margin-bottom: 8px;
   cursor: pointer;
-  border: 1px solid #d1d5da;
+  border: 1px solid #071F3D;
   background-color: transparent;
   border-radius: 23px;
   padding: 0 24px;
@@ -283,7 +283,8 @@ export default {
   height: 46px;
 
   &:hover {
-    border-color: #111;
+    background-color: rgba(154, 154, 154, 0.2);
+    // background-color: rgb(247, 242, 244);
   }
 
   span {
