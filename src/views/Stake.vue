@@ -143,15 +143,12 @@ export default {
       text-decoration: none;
       padding: 12px 40px;
       box-sizing: border-box;
-      background: linear-gradient(145deg, #bee6e1, #a0c2bd);
-      box-shadow:  5px 5px 4px #a4c6c1, 
-             -5px -5px 4px #c0e8e3;
-      // border: 2px solid #808080;
+      box-shadow:  5px 5px 4px #a4c6c1, -1px -1px 12px #c0e8e3;
       border-radius: 10px;
       cursor: pointer;
       transition: all .3s;
       &:hover {
-        box-shadow: none;
+        background: #a0c2bd // linear-gradient(145deg, #bee6e1, #a0c2bd);
       }
     }
   }
