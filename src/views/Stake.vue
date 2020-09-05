@@ -6,7 +6,7 @@
       <honey />
       </section>
       <!-- <section class="logo">🐝</section> -->
-      <p class="introduction">select a garden and earn BEE 🐝.</p>
+      <p class="introduction">Select A Garden And Earn BEE 🐝.</p>
 
       <!-- <p class="des">Earn BEE tokens by staking Tokens.</p> -->
 
@@ -128,7 +128,7 @@ export default {
   justify-content: center;
 }
 .introduction {
-  // font-family: KaushanScript-Regular;
+  font-family: KaushanScript-Regular;
   font-size: 30px;
   padding: 0;
   margin: 0;
