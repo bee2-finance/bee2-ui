@@ -12,7 +12,7 @@
         <el-alert
           title="⏰  The pool will be opened in 2020-09-09 09:00:00(UTC +00:00)"
           type="warning"
-          :closable="false">
+          :closable="true">
         </el-alert>
       </div>
       <!-- <h3 class="h-title">
