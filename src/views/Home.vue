@@ -5,10 +5,19 @@
       <Bee />
       <!-- <beehive /> -->
       <!-- <section class="logo">🐝</section> -->
-      <!-- <p class="introduction">Bee2 is ready</p> -->
-      <h3 class="h-title">
-        <!-- 🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯 -->
-      </h3>
+      <!-- <div>
+        <p class="">The initialized pool will be opened in 2020-09-09 09:00:00(utc+0)</p>
+      </div> -->
+      <div class="notice-container">
+        <el-alert
+          title="⏰  The pool will be opened in 2020-09-09 09:00:00(UTC +00:00)"
+          type="warning"
+          :closable="false">
+        </el-alert>
+      </div>
+      <!-- <h3 class="h-title">
+        🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯
+      </h3> -->
       <!-- <h3 class="h-title"></h3> -->
       <section class="h-total">
         <section class="h-total-block">
@@ -285,5 +294,8 @@ export default {
   margin: 0;
   text-align: center;
   line-height: 60px;
+}
+.notice-container {
+  margin: 60px 0 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, Table, TableColumn, Dialog, Loading, Message, MessageBox, Input} from 'element-ui'
+import { Button, Table, TableColumn, Dialog, Loading, Message, MessageBox, Input, Alert} from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 
 Vue
@@ -8,6 +8,7 @@ Vue
   .use(TableColumn)
   .use(Dialog)
   .use(Input)
+  .use(Alert)
 
 
 Vue.use(Loading.directive)
