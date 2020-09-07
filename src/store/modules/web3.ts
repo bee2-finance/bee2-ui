@@ -343,7 +343,7 @@ const actions = {
     }
   },
   // get balanceOf
-  balanceOf: async ({ commit }, { contract, abiName, account }) => {
+  balanceOf: async ({ commit }, { contract, abiName, account, decimals = 18 }) => {
     try {
       const multi = new Contract(contract, abi[abiName], rpcProvider)
 
@@ -351,7 +351,7 @@ const actions = {
 
       console.log('balanceOf', response)
 
-      let balance = parseFloat(formatUnits(response.toString(), 18))
+      let balance = parseFloat(formatUnits(response.toString(), decimals))
 
       return balance
     } catch (e) {
@@ -406,14 +406,14 @@ const actions = {
     }
   },
   // get totalSupply
-  totalSupply: async ({ commit }, { contract, abiName }) => {
+  totalSupply: async ({ commit }, { contract, abiName, decimals = 18 }) => {
     try {
       const multi = new Contract(contract, abi[abiName], rpcProvider)
       let response = await multi.totalSupply()
 
       console.log('totalSupply', response)
 
-      let balance = parseFloat(formatUnits(response.toString(), 18))
+      let balance = parseFloat(formatUnits(response.toString(), decimals))
 
       return balance
     } catch (e) {
@@ -450,11 +450,8 @@ const actions = {
   // stake
   stake: async (
     { commit },
-    { contract, abiName, amount}
+    { contract, abiName, amount, decimals = 18 }
   ) => {
-
-    console.log('parseUnits', parseUnits('100').toString())
-
     commit('SEND_TRANSACTION_REQUEST')
     try {
       const signer = web3.getSigner()
@@ -464,8 +461,10 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      let amountStr = parseUnits(amount + '').toString()
-      const tx = contractWithSigner.stake(amountStr)
+      let amountStr = parseUnits(amount + '', decimals).toString()
+      const tx = contractWithSigner.stake(amountStr, {
+        gasLimit: 750000
+      })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
@@ -477,7 +476,7 @@ const actions = {
   // unStake
   unStake: async (
     { commit },
-    { contract, abiName, amount}
+    { contract, abiName, amount, decimals = 18 }
   ) => {
 
     commit('SEND_TRANSACTION_REQUEST')
@@ -489,8 +488,10 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      let amountStr = parseUnits(amount + '').toString()
-      const tx = contractWithSigner.withdraw(amountStr)
+      let amountStr = parseUnits(amount + '', decimals).toString()
+      const tx = contractWithSigner.withdraw(amountStr, {
+        gasLimit: 750000
+      })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx

@@ -2,21 +2,25 @@
   "weth": {
     "icon": "🌺",
     "name": "Hibiscus",
-    "symbol": "WETH"
+    "symbol": "WETH",
+    "decimals": 18
   },
   "link": {
     "icon": "🌸",
     "name": "Cherry Blossom",
-    "symbol": "LINK"
+    "symbol": "LINK",
+    "decimals": 18
   },
   "yamv2": {
     "icon": "🌼",
     "name": "Daisy",
-    "symbol": "YAMv2"
+    "symbol": "YAMv2",
+    "decimals": 24
   },
   "ant": {
     "icon": "🌻",
     "name": "Sunflower",
-    "symbol": "ANT"
+    "symbol": "ANT",
+    "decimals": 18
   }
 }
