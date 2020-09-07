@@ -90,6 +90,7 @@ export default {
         let res = await this.totalSupply({
           contract: contract.pool[key].address,
           abiName: contract.pool[key].symbol,
+          decimals: farmList[key].decimals,
         })
         farmList[key].totalStaked = res
       }

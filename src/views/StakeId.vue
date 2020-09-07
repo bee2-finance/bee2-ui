@@ -45,7 +45,7 @@
             :disabled="earnedVal <= 0"
             @click="harvestFunc"
           >
-            Harvest
+            Harvest BEE
           </a>
         </li>
         <li>
@@ -63,7 +63,7 @@
             :disabled="honeyVal <= 0"
             @click="harvestHoneyFunc"
           >
-            Harvest
+            Harvest HONEY
           </a>
         </li>
       </ul>
@@ -78,8 +78,8 @@
       <a 
         href="javascript:;"
         class="other-button"
-        :disabled="(stakeVal <= 0) || (earnedVal <= 0) || (honeyVal <= 0)"
-        @click="exitFunc">Harvest & Unstake</a>
+        :disabled="(stakeVal <= 0) || (earnedVal <= 0)"
+        @click="exitFunc">Harvest BEE & Unstake</a>
 
     </section>
     <Footer></Footer>
@@ -143,11 +143,11 @@ export default {
     this.getDataFunc()
     
     // keep polling
-    this.timer = setInterval(() => {
+    // this.timer = setInterval(() => {
       if (this.web3.account) {
         this.getDataFunc()
       }
-    }, 5000)
+    // }, 5000)
   },
   destroyed() {
     clearInterval(this.timer)
@@ -178,6 +178,7 @@ export default {
           contract: this.poolAddress,
           abiName: this.poolAbiKey,
           account: this.web3.account,
+          decimals: this.farmId.decimals
         })
       this.stakeVal = this.formatUnit(balanceOfRes)
 
@@ -249,7 +250,8 @@ export default {
       let res = await this.stake({
         contract: this.poolAddress,
         abiName: this.poolAbiKey,
-        amount: amount
+        amount: amount,
+        decimals: this.farmId.decimals || 18
       })
       console.log('res', res)
     },
@@ -289,7 +291,8 @@ export default {
           await this.unStake({
             contract: this.poolAddress,
             abiName: this.poolAbiKey,
-            amount: value
+            amount: value,
+            decimals: this.farmId.decimals || 18
           })
         }
 
@@ -307,7 +310,8 @@ export default {
     },
     // user exit
     async exitFunc() {
-      if (this.stakeVal > 0 && this.earnedVal && this.honeyVal > 0) {
+      console.log('exitFunc')
+      if (this.stakeVal > 0 && this.earnedVal) {
         if (!this.web3.account) return
 
         await this.exit({
