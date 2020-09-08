@@ -18,6 +18,7 @@
             <h4 class="item-title">{{ formatUnitBalance(stakeVal) }}</h4>
             <div class="item-des">
               <p>{{ farmId.symbol.toLocaleUpperCase() }} Staked</p>
+              <p>Your {{ farmId.symbol.toLocaleUpperCase() }} Balance: {{ balance }}</p>
             </div>
           </div>
 
@@ -105,7 +106,8 @@ export default {
       stakeVal: '0.0000',
       earnedVal: '0.0000',
       honeyVal: '0.0000',
-      timer: null
+      timer: null,
+      balance: '0.0000',
     }
   },
   computed: {
@@ -197,6 +199,16 @@ export default {
         account: this.web3.account,
       })
       this.honeyVal = this.formatUnit(honeyRes)
+
+      // balance
+      let balanceOfCurrent = await this.balanceOf({
+          contract: this.stakeAddress,
+          abiName: 'ERC20',
+          account: this.web3.account,
+          decimals: this.farmId.decimals
+        })
+      console.log('balance', balanceOfCurrent)
+      this.balance = this.formatUnit(balanceOfCurrent)
 
     },
     // approve state
@@ -481,4 +493,5 @@ export default {
     align-items: center;
   }
 }
+
 </style>
