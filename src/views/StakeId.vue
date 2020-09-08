@@ -217,6 +217,13 @@ export default {
 
     // approve stated
     async approveStaked() {
+      let now = new Date().getTime() / 1000
+      console.log('now', now)
+      if (now < 1599642000) { // 09/09/2020 @ 9:00am (UTC +00:00)
+        alert('pool not active')
+        return
+      }
+
       if (this.approveValue > 0) {
         this.$prompt('', 'Please input amount.', {
         confirmButtonText: 'Confirm',
@@ -246,14 +253,12 @@ export default {
     // state
     async stakedFunc(amount) {
       if (!this.web3.account) return
-
-      let res = await this.stake({
+      await this.stake({
         contract: this.poolAddress,
         abiName: this.poolAbiKey,
         amount: amount,
         decimals: this.farmId.decimals || 18
       })
-      console.log('res', res)
     },
 
     // user harvest
@@ -311,7 +316,7 @@ export default {
     // user exit
     async exitFunc() {
       console.log('exitFunc')
-      if (this.stakeVal > 0 && this.earnedVal) {
+      if (this.stakeVal > 0 && this.earnedVal > 0) {
         if (!this.web3.account) return
 
         await this.exit({
