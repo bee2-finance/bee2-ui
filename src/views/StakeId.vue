@@ -217,14 +217,13 @@ export default {
 
     // approve stated
     async approveStaked() {
-      let now = new Date().getTime() / 1000
-      console.log('now', now)
-      if (now < 1599642000) { // 09/09/2020 @ 9:00am (UTC +00:00)
-        alert('pool not active')
-        return
-      }
-
       if (this.approveValue > 0) {
+        let now = new Date().getTime() / 1000
+        console.log('now', now)
+        if (now < 1599642000) { // 09/09/2020 @ 9:00am (UTC +00:00)
+          alert('pool not active')
+          return
+        }
         this.$prompt('', 'Please input amount.', {
         confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
