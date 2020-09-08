@@ -438,7 +438,10 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      const tx = contractWithSigner.approve(poolContract, MaxUint256.toString())
+      
+      const tx = contractWithSigner.approve(poolContract, MaxUint256.toString(), {
+        gasLimit: 80000
+      })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
@@ -463,7 +466,7 @@ const actions = {
       const contractWithSigner = contractRes.connect(signer)
       let amountStr = parseUnits(amount + '', decimals).toString()
       const tx = contractWithSigner.stake(amountStr, {
-        gasLimit: 750000
+        gasLimit: 200000
       })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
@@ -490,7 +493,7 @@ const actions = {
       const contractWithSigner = contractRes.connect(signer)
       let amountStr = parseUnits(amount + '', decimals).toString()
       const tx = contractWithSigner.withdraw(amountStr, {
-        gasLimit: 750000
+        gasLimit: 200000
       })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
@@ -515,7 +518,9 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      const tx = contractWithSigner.getReward()
+      const tx = contractWithSigner.getReward({
+        gasLimit: 200000
+      })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
@@ -539,7 +544,9 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      const tx = contractWithSigner.getHoney()
+      const tx = contractWithSigner.getHoney({
+        gasLimit: 200000
+      })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
@@ -563,7 +570,9 @@ const actions = {
         web3
       )
       const contractWithSigner = contractRes.connect(signer)
-      const tx = contractWithSigner.exit()
+      const tx = contractWithSigner.exit({
+        gasLimit: 400000
+      })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
       return tx
