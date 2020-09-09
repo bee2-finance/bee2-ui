@@ -9,16 +9,16 @@
         {{ farmId.name }}
       </p>
 
-      <p class="des">Earn BEE tokens by staking {{ farmId.symbol.toLocaleUpperCase() }} Tokens.</p>
+      <p class="des">Earn BEE tokens by staking {{ farmId.symbol }} Tokens.</p>
 
-      <p class="user-balance">Your {{ farmId.symbol.toLocaleUpperCase() }} Balance: {{ balance }}</p>
+      <p class="user-balance">Your {{ farmId.symbol }} Balance: {{ balance }}</p>
       <ul class="item">
         <li>
           <div>
             <div class="item-logo">{{ farmId.icon }}</div>
             <h4 class="item-title">{{ formatUnitBalance(stakeVal) }}</h4>
             <div class="item-des">
-              <p>{{ farmId.symbol.toLocaleUpperCase() }} Staked</p>
+              <p>{{ farmId.symbol }} Staked</p>
             </div>
           </div>
 
@@ -28,7 +28,7 @@
             @click="approveStaked"
           >
           {{ approveValue > 0 ? 'Stake' : 'Approve' }}
-          {{ farmId.symbol.toLocaleUpperCase() }}
+          {{ farmId.symbol }}
           </a>
         </li>
         <li>
@@ -315,9 +315,12 @@ export default {
           })
         }
 
-        this.$prompt('', 'Please input amount.', {
-          confirmButtonText: 'Confirm',
+        const stakingAmountStr = `your staking amount: ${ this.stakeVal } ${ this.farmId.symbol }`
+        this.$prompt(stakingAmountStr, 'Please input unstaking amount.', {
+            confirmButtonText: 'Confirm',
             cancelButtonText: 'Cancel',
+            inputPattern: /^[0-9].?[0-9]*$/,
+            inputErrorMessage: 'Please enter a number'
           }).then(({ value }) => {
             confirmUnState(value)
           }).catch(() => {

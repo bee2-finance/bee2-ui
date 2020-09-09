@@ -17,7 +17,7 @@
           </div>
           <h4 class="item-title">{{ item.name }}</h4>
           <div class="item-des">
-            <p>Deposit {{ item.symbol.toLocaleUpperCase() }}</p>
+            <p>Deposit {{ item.symbol }}</p>
             <p>Earn BEE</p>
           </div>
 
