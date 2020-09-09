@@ -11,6 +11,7 @@
 
       <p class="des">Earn BEE tokens by staking {{ farmId.symbol.toLocaleUpperCase() }} Tokens.</p>
 
+      <p class="user-balance">Your {{ farmId.symbol.toLocaleUpperCase() }} Balance: {{ balance }}</p>
       <ul class="item">
         <li>
           <div>
@@ -18,7 +19,6 @@
             <h4 class="item-title">{{ formatUnitBalance(stakeVal) }}</h4>
             <div class="item-des">
               <p>{{ farmId.symbol.toLocaleUpperCase() }} Staked</p>
-              <p>Your {{ farmId.symbol.toLocaleUpperCase() }} Balance: {{ balance }}</p>
             </div>
           </div>
 
@@ -381,9 +381,12 @@ export default {
   text-align: center;
   line-height: 60px;
 }
-
+.user-balance {
+  font-size: 14px;
+  margin: 30px 10px 0;
+}
 .item {
-  margin: 60px 0 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -487,6 +490,9 @@ export default {
   }
 }
 @media screen and (max-width: 900px) {
+  .user-balance {
+    text-align: center;
+  }
   ul.item {
     display: flex;
     flex-direction: column;
