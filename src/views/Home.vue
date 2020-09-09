@@ -30,7 +30,7 @@
           <div class="line"></div>
           <div class="p1 total">
             <span>Pending harvest</span>
-            <span>{{ formatUnitBalance(pendingHarvest) }} BEE</span>
+            <span>{{ loading ? 'loading...' : formatUnitBalance(pendingHarvest) }} BEE</span>
           </div>
         </section>
 
@@ -44,7 +44,7 @@
           <div class="line"></div>
           <div class="p1 total">
             <span>Pending harvest</span>
-            <span>{{ formatUnitBalance(pendingHarvestHoney) }} HONEY</span>
+            <span>{{ loading ? 'loading...' : formatUnitBalance(pendingHarvestHoney) }} HONEY</span>
           </div>
         </section>
 
@@ -94,6 +94,7 @@ export default {
       balanceHoney: '0.0000',
       pendingHarvest: '0.0000',
       pendingHarvestHoney: '0.0000',
+      loading: true
     }
   },
   computed: {
@@ -152,6 +153,7 @@ export default {
     async getDataFunc() {
       // bee balance
       if (!this.web3.account) return
+      this.loading = true
       let balance = await this.balanceOf({
         contract: contract.harvest.bee.address,
         abiName: 'ERC20',
@@ -175,6 +177,7 @@ export default {
       // harvest honey
       let pendingHarvestHoney = await this.harvestHoneySum()
       this.pendingHarvestHoney = this.formatUnit(pendingHarvestHoney)
+      this.loading = false
 
     }
   }

@@ -27,7 +27,7 @@
 
           <div class="total">
             <span>TOTAL STAKED</span>
-            <span>{{ item.totalStaked ? formatUnitBalance(item.totalStaked) : 0 }}</span>
+            <span>{{ item.totalStaked !== undefined ? formatUnitBalance(item.totalStaked) : 'loading' }}</span>
           </div>
         </li>
         <li>

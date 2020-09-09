@@ -107,7 +107,7 @@ export default {
       earnedVal: '0.0000',
       honeyVal: '0.0000',
       timer: null,
-      balance: '0.0000',
+      balance: 'loading...',
     }
   },
   computed: {
