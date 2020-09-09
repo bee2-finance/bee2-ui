@@ -236,9 +236,12 @@ export default {
           alert('pool not active')
           return
         }
-        this.$prompt('', 'Please input amount.', {
-        confirmButtonText: 'Confirm',
+        const userBalanceStr = `your ${ this.farmId.symbol } balance: ${ this.balance }`
+        this.$prompt(userBalanceStr, 'Please input staking amount.', {
+          confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
+          inputPattern: /^[0-9].?[0-9]*$/,
+          inputErrorMessage: 'Please enter a number'
         }).then(({ value }) => {
           this.stakedFunc(value)
         }).catch(() => {
