@@ -15,6 +15,13 @@ import namespaces from '@/namespaces.json'
 
 console.log('abi', abi)
 
+const GAS_LIMIT = {
+  STAKING: {
+    DEFAULT: 200000,
+    BEEANTPOOL: 300000,
+  }
+}
+
 let auth
 let web3
 
@@ -462,11 +469,13 @@ const actions = {
         contract,
         abi[abiName],
         web3
-      )
+      )      
+
+      const gasLimit = GAS_LIMIT.STAKING[abiName.toUpperCase()] || GAS_LIMIT.STAKING.DEFAULT
       const contractWithSigner = contractRes.connect(signer)
       let amountStr = parseUnits(amount + '', decimals).toString()
       const tx = contractWithSigner.stake(amountStr, {
-        gasLimit: 200000
+        gasLimit
       })
       await tx.wait()
       commit('SEND_TRANSACTION_SUCCESS')
