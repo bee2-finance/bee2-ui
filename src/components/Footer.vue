@@ -1,33 +1,5 @@
 <template>
   <footer class="footer">
-    <!-- <div class="footer-link">
-      <a
-        href="https://etherscan.io/token/0x45f24BaEef268BB6d63AEe5129015d69702BCDfa"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Token Contract</a
-      ><a
-        href="https://coinmarketcap.com/currencies/yfvalue/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >CoinMarketCap</a
-      ><a
-        href="https://www.coingecko.com/en/coins/yfvalue#markets"
-        target="_blank"
-        rel="noopener noreferrer"
-        >CoinGecko</a
-      ><a
-        href="https://app.uniswap.org/#/swap?inputCurrency=0xdAC17F958D2ee523a2206206994597C13D831ec7&amp;outputCurrency=0x45f24BaEef268BB6d63AEe5129015d69702BCDfa"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Uniswap USDT-YFV</a
-      ><a
-        href="https://balancer.exchange/#/swap/0x45f24baeef268bb6d63aee5129015d69702bcdfa"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Balancer Swap</a
-      ><a href="/audit">Audit</a>
-    </div> -->
     <div class="footer-icon">
       <a
         href="https://medium.com/@bee2.finance"
@@ -51,8 +23,15 @@
         href="https://t.me/bee2_finance"
         target="_blank"
         rel="noopener noreferrer"
-        title="Telegram Finance YFV"
+        title="Telegram"
         ><img src="@/assets/svg/telegram.svg" alt=""/></a
+      >
+      <a
+        href="https://github.com/bee2-finance"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Github"
+        ><img src="@/assets/svg/github.svg" alt=""/></a
       >
     </div>
   </footer>
