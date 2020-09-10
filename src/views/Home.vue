@@ -9,11 +9,11 @@
         <p class="">The initialized pool will be opened in 2020-09-09 09:00:00(utc+0)</p>
       </div> -->
       <div class="notice-container">
-        <el-alert
+        <!-- <el-alert
           title="⏰  The pool will be opened in 2020-09-09 09:00:00(UTC +00:00)"
           type="warning"
           :closable="true">
-        </el-alert>
+        </el-alert> -->
       </div>
       <!-- <h3 class="h-title">
         🍯 You have&nbsp;<span>{{ balance }}&nbsp;BEE</span> 🍯
