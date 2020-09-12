@@ -1,4 +1,16 @@
 {
+  "eth_bee_uni_lp": {
+    "icon": "🌹",
+    "name": "Rose",
+    "symbol": "ETH_BEE_UNI_LP",
+    "decimals": 18
+  },
+  "ycrv_bee_uni_lp": {
+    "icon": "🌷",
+    "name": "Tulip",
+    "symbol": "YCRV_BEE_UNI_LP",
+    "decimals": 18
+  },
   "weth": {
     "icon": "🌺",
     "name": "Hibiscus",

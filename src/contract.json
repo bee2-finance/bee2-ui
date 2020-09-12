@@ -15,6 +15,14 @@
     "ant": {
       "symbol": "ANT",
       "address": "0x960b236A07cf122663c4303350609A66A7B288C0"
+    },
+    "eth_bee_uni_lp": {
+      "symbol": "ETH_BEE_UNI_LP",
+      "address": "0x63495B5B7F58F63560e474c5fA039121475a8cE4"
+    },
+    "ycrv_bee_uni_lp": {
+      "symbol": "YCRV_BEE_UNI_LP",
+      "address": "0x04bDB856CaC3c09911c46bbc9029c8ef12B8Cbe7"
     }
   },
   "harvest": {
@@ -43,6 +51,14 @@
     "ant": {
       "symbol": "BEEANTPool",
       "address": "0x9bD2e195c1d8D4023103067f112894f85306CF43"
+    },
+    "eth_bee_uni_lp": {
+      "symbol": "BEEETHUNIv2Pool",
+      "address": "0x9d21FDB292e69F3EF3d5De96D92248d314003fca"
+    },
+    "ycrv_bee_uni_lp": {
+      "symbol": "BEEyCRVUNIv2Pool",
+      "address": "0xC4D477BCF1578ebF4Dee2318E19aB7649a83F5bB"
     }
   }
 }
