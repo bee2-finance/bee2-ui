@@ -3,13 +3,17 @@
     "icon": "🌹",
     "name": "Rose",
     "symbol": "ETH_BEE_UNI_LP",
-    "decimals": 18
+    "decimals": 18,
+    "hot": true,
+    "starttime": 1600128000
   },
   "ycrv_bee_uni_lp": {
     "icon": "🌷",
     "name": "Tulip",
     "symbol": "YCRV_BEE_UNI_LP",
-    "decimals": 18
+    "decimals": 18,
+    "hot": true,
+    "starttime": 1600128000
   },
   "weth": {
     "icon": "🌺",

@@ -9,6 +9,7 @@
 <style lang="less" scoped>
 .card {
   height: 265px;
+  padding: 20px;
     .item-logo {
       width: 80px;
       height: 80px;

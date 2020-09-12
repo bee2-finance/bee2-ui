@@ -12,22 +12,26 @@
 
       <ul class="item">
         <li v-for="(item, name, index) in farmList" :key="index">
-          <div class="item-logo">
-            {{ item.icon }}
-          </div>
-          <h4 class="item-title">{{ item.name }}</h4>
-          <div class="item-des">
-            <p>Deposit {{ item.symbol }}</p>
-            <p>Earn BEE</p>
-          </div>
+          <!-- <div class="label">3X</div> -->
+          <div class="kyOvTV" v-if="item.hot"></div>
+          <div class="pool-container">
+            <div class="item-logo">
+              {{ item.icon }}
+            </div>
+            <h4 class="item-title">{{ item.name }}</h4>
+            <div class="item-des">
+              <p>Deposit {{ item.symbol }}</p>
+              <p>Earn BEE</p>
+            </div>
 
-          <router-link :to="{ name: 'StakeId', params: { id: item.symbol.toLocaleLowerCase() } }" class="item-btn">
-            Select
-          </router-link>
+            <router-link :to="{ name: 'StakeId', params: { id: item.symbol.toLocaleLowerCase() } }" class="item-btn">
+              Select
+            </router-link>
 
-          <div class="total">
-            <span>TOTAL STAKED</span>
-            <span>{{ item.totalStaked !== undefined ? formatUnitBalance(item.totalStaked) : 'loading' }}</span>
+            <div class="total">
+              <span>TOTAL STAKED</span>
+              <span>{{ item.totalStaked !== undefined ? formatUnitBalance(item.totalStaked) : 'loading' }}</span>
+            </div>
           </div>
         </li>
         <li>
@@ -148,18 +152,25 @@ export default {
     clear: both;
   }
   li {
+    position: relative;
     width: 260px;
     min-height: 360px;
     margin: 20px 20px;
     float: left;
     list-style: none;
     text-align: center;
-    padding: 20px;
     box-sizing: border-box;
     box-shadow:  5px 5px 10px #a9ccc8, 
              -5px -5px 10px #bbe2dd;
     border-radius: 20px;
     transition: all .2s;
+    .pool-container {
+      padding: 20px;
+      z-index: 10;
+      position: relative;
+      background: #B2D7D2;
+      border-radius: 20px;
+    }
     &:hover {
       // border: 1px solid #fff;
     }
@@ -221,6 +232,59 @@ export default {
     text-align: center;
     padding: 0px 12px;
 }
+.kyOvTV {
+    background: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 154, 0) 10%, rgb(208, 222, 33) 20%, rgb(79, 220, 74) 30%, rgb(63, 218, 216) 40%, rgb(47, 201, 226) 50%, rgb(28, 127, 238) 60%, rgb(95, 21, 242) 70%, rgb(186, 12, 248) 80%, rgb(251, 7, 217) 90%, rgb(255, 0, 0) 100%);
+    border-radius: 20px;
+    filter: blur(4px);
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    z-index: 0;
+}
+.label{
+  font-size:13px;
+  line-height:32px;
+  background:orange;
+  position:absolute;
+  right:0;
+  top:0;
+  z-index:11;
+  padding:0 2em;
+  transform-origin:left bottom;
+  transform:translate(29.29%,-100%) rotate(45deg);
+  text-indent:0;
+}
+
+.corner::before {
+  position: absolute;
+  top: 0.3rem;
+  right: -0.5rem;
+  z-index: 1;
+  padding-left: 0.625rem;
+  font-weight: bold;
+  line-height: 0px;
+  color: #ffffff;
+  height: 0px;
+  border: 0.9375rem solid #EC2027;
+  border-left-color: transparent;
+  content: "3X";
+  box-shadow: 0px 0.3125rem 0.3125rem -0.3125rem #000;
+  z-index: 11;
+}
+
+.corner::after {
+  content: "";
+  position: absolute;
+  top: 2.1875rem;
+  right: -0.5rem;
+  border: 0.25rem solid #89540c;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  z-index: 11;
+}
+
 @media screen and (max-width: 900px) {
   ul.item {
     display: flex;

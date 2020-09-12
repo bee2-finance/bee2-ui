@@ -10,6 +10,7 @@
       </p>
 
       <p class="des">Earn BEE tokens by staking {{ farmId.symbol }} Tokens.</p>
+      <countdown v-if="farmId.starttime" :starttime="farmId.starttime" />
 
       <p class="user-balance">Your {{ farmId.symbol }} Balance: {{ balance }}</p>
       <ul class="item">
@@ -92,12 +93,12 @@ import farm from '../farm.json'
 import { mapActions, mapState } from 'vuex'
 import contract from '@/contract.json'
 import { formatUnitBalance } from '@/helpers/utils'
-
-console.log('contract', contract)
+import countdown from '@/components/countdown'
 
 export default {
   name: 'Home',
   components: {
+    countdown
   },
   data() {
     return {
@@ -230,9 +231,9 @@ export default {
     // approve stated
     async approveStaked() {
       if (this.approveValue > 0) {
+        const starttime = this.farmId.starttime
         let now = new Date().getTime() / 1000
-        console.log('now', now)
-        if (now < 1599642000) { // 09/09/2020 @ 9:00am (UTC +00:00)
+        if (starttime && now < starttime) {
           alert('pool not active')
           return
         }
