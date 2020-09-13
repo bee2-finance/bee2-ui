@@ -83,6 +83,13 @@
         :disabled="(stakeVal <= 0) || (earnedVal <= 0)"
         @click="exitFunc">Harvest BEE & Unstake</a>
 
+      <a 
+        :href="farmId.uniswap"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="other-button" v-if="farmId.uniswap"
+      >Get {{ farmId.symbol }}</a>
+
     </section>
     <Footer></Footer>
   </section>
