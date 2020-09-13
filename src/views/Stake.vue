@@ -1,7 +1,7 @@
 <template>
   <section class="staking">
     <Header></Header>
-    <section class="container">
+    <section class="container" v-if="this.web3.account">
       <section class="logo">
       <honey />
       </section>
@@ -13,7 +13,7 @@
       <ul class="item">
         <li v-for="(item, name, index) in farmList" :key="index">
           <!-- <div class="label">3X</div> -->
-          <div class="badge-3x" v-if="item.hot"><img src="@/assets/svg/badge-3x.svg" height="35" alt="fire-badge"></div>
+          <div class="badge-3x" v-if="item.hot"><img src="@/assets/svg/badge-3x.svg" height="30" alt="fire-badge"></div>
           <div class="kyOvTV" v-if="item.hot"></div>
           <div class="pool-container">
             <div class="item-logo">
@@ -28,18 +28,21 @@
             <router-link :to="{ name: 'StakeId', params: { id: item.symbol.toLocaleLowerCase() } }" class="item-btn">
               Select
             </router-link>
+            <Progress :staked="item.totalStaked" :honeyReward="item.honeyReward" :symbol="item.symbol"/>
 
-            <div class="total">
+            <!-- <div class="total">
               <span>TOTAL STAKED</span>
               <span>{{ item.totalStaked !== undefined ? formatUnitBalance(item.totalStaked) : 'loading' }}</span>
-            </div>
+            </div> -->
           </div>
         </li>
         <li>
           <SoonCard />
         </li>
       </ul>
-      
+    </section>
+    <section v-else class="container display-center">
+      <button class="unlock-wallet" @click="$store.commit('SET_LOGIN_MODAL_SHOW', true)">Connect Wallet</button>
     </section>
     <Footer></Footer>
   </section>
@@ -53,12 +56,14 @@ import SoonCard from '@/components/SoonCard'
 import { mapActions, mapState } from 'vuex'
 import contract from '@/contract.json'
 import { formatUnitBalance } from '@/helpers/utils'
+import Progress from '@/components/Progress'
 
 export default {
   name: 'Home',
   components: {
     honey,
-    SoonCard
+    SoonCard,
+    Progress
   },
   data() {
     return {
@@ -155,7 +160,7 @@ export default {
   li {
     position: relative;
     width: 260px;
-    min-height: 360px;
+    // min-height: 360px;
     margin: 20px 20px;
     float: left;
     list-style: none;
@@ -205,7 +210,7 @@ export default {
       margin: 40px 0 0 0;
       color: #001f3f;
       text-decoration: none;
-      padding: 12px 40px;
+      padding: 12px 80px;
       box-sizing: border-box;
       box-shadow:  5px 5px 4px #a4c6c1, -1px -1px 12px #c0e8e3;
       border-radius: 10px;
@@ -250,7 +255,34 @@ export default {
   top: 10px;
   z-index: 12;
 }
-
+.display-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.unlock-wallet {
+    color: #001f3f;
+    background-color: rgba(154, 154, 154, 0.2);
+    padding: 10px 24px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    font-family: "Open Sans", Roboto, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 50px;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    display: inline-flex;
+    outline: 0;
+    position: relative;
+    align-items: center;
+    user-select: none;
+    vertical-align: middle;
+    justify-content: center;
+    text-decoration: none;
+}
 @media screen and (max-width: 900px) {
   ul.item {
     display: flex;

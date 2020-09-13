@@ -5,7 +5,8 @@
     "symbol": "ETH_BEE_UNI_LP",
     "decimals": 18,
     "hot": true,
-    "starttime": 1600128000
+    "starttime": 1600128000,
+    "honeyReward": 100000
   },
   "ycrv_bee_uni_lp": {
     "icon": "🌷",
@@ -13,30 +14,35 @@
     "symbol": "YCRV_BEE_UNI_LP",
     "decimals": 18,
     "hot": true,
-    "starttime": 1600128000
+    "starttime": 1600128000,
+    "honeyReward": 10000
   },
   "weth": {
     "icon": "🌺",
     "name": "Hibiscus",
     "symbol": "WETH",
-    "decimals": 18
+    "decimals": 18,
+    "honeyReward": 10000
   },
   "link": {
     "icon": "🌸",
     "name": "Cherry Blossom",
     "symbol": "LINK",
-    "decimals": 18
+    "decimals": 18,
+    "honeyReward": 500000
   },
   "yamv2": {
     "icon": "🌼",
     "name": "Daisy",
     "symbol": "YAMv2",
-    "decimals": 24
+    "decimals": 24,
+    "honeyReward": 500000
   },
   "ant": {
     "icon": "🌻",
     "name": "Sunflower",
     "symbol": "ANT",
-    "decimals": 18
+    "decimals": 18,
+    "honeyReward": 1000000
   }
 }

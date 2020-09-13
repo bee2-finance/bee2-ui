@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     showDialog() {
-      console.log(this.$store.state)
       this.$store.commit('SET_LOGIN_MODAL_SHOW', true)
     }
   },

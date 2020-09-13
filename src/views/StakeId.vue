@@ -94,11 +94,13 @@ import { mapActions, mapState } from 'vuex'
 import contract from '@/contract.json'
 import { formatUnitBalance } from '@/helpers/utils'
 import countdown from '@/components/countdown'
+// import Progress from '@/components/Progress'
 
 export default {
   name: 'Home',
   components: {
-    countdown
+    countdown,
+    // Progress
   },
   data() {
     return {
