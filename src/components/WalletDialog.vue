@@ -43,7 +43,7 @@
   </el-dialog>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'WalletDialog',
   props: {
@@ -66,7 +66,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(['web3']),
     walletList() {
       if (this.config && this.config.connectors) {
         let wallet = this.config.connectors
