@@ -1,6 +1,6 @@
 <template>
   <div class="countdown-container">
-    <div class="countdown-inner">
+    <div class="countdown-inner" v-if="show">
       <h2>⏰ Pool Active Countdown</h2>
       <ul>
         <li><span id="days">{{ days }}</span>days</li>
@@ -26,7 +26,8 @@ export default {
       hours: 0,
       mins: 0,
       secs: 0,
-      x: null
+      x: null,
+      show: true
     }
   },
   mounted() {
@@ -42,8 +43,12 @@ export default {
       const hour = minute * 60
       const day = hour * 24
       let countDown = new Date(this.starttime * 1000).getTime()
-      this.x = setInterval(() => {    
+      this.x = setInterval(() => {
         let now = new Date().getTime()
+        if (countDown <= now) {
+          this.show = false
+          return
+        }
         const distance = countDown - now
         this.days = Math.floor(distance / (day))
         this.hours = Math.floor((distance % (day)) / (hour))

@@ -1,5 +1,23 @@
 <template>
   <footer class="footer">
+    <div class="footer-link">
+      <a
+        href="https://etherscan.io/token/0xcd4292701995f4707ae63fb1a48d80db2c5f04d4"
+        target="_blank"
+        rel="noopener noreferrer"
+        >BEE Contract</a
+      ><a
+        href="https://etherscan.io/token/0x932441a0F11482CB5f8B8900aB981a39806F88fa"
+        target="_blank"
+        rel="noopener noreferrer"
+        >HONEY Contract</a
+      ><a
+        href="https://uniswap.info/pair/0x63495b5b7f58f63560e474c5fa039121475a8ce4"
+        target="_blank"
+        rel="noopener noreferrer"
+        >BEE-ETH Uniswap</a
+      >
+    </div>
     <div class="footer-icon">
       <a
         href="https://medium.com/@bee2.finance"
@@ -49,7 +67,7 @@
     justify-content: center;
   }
   a {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.8);
     margin: 5px 15px;
     text-decoration: none;
     &:hover {
