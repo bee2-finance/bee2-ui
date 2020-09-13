@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 const state = {
   init: false,
-  loading: false
+  loading: false,
+  loginModalShow: false,
 }
 
 const mutations = {
@@ -10,7 +11,11 @@ const mutations = {
     Object.keys(payload).forEach(key => {
       Vue.set(_state, key, payload[key])
     })
-  }
+  },
+  SET_LOGIN_MODAL_SHOW(state, show) {
+    console.log('state', state)
+    state.loginModalShow = show
+  },
 }
 
 const actions = {

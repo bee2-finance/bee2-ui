@@ -30,7 +30,7 @@
       <section class="h-wallet">
         <!-- show account -->
         <template v-if="$auth.isAuthenticated && !wrongNetwork && web3.account">
-          <el-button @click="accountDialogVisible = true">
+          <el-button @click="showDialog">
             <div class="account">
               <Avatar :address="web3.account" size="16" />
               <span v-text="_shorten(web3.account)" />
@@ -44,57 +44,18 @@
         <!-- connect wallet -->
         <el-button
           v-if="showLogin || !web3.account"
-          @click="accountDialogVisible = true"
+          @click="showDialog"
           :loading="loading"
         >
           Connect wallet
         </el-button>
       </section>
     </section>
-
-    <!-- connect wallet -->
-    <el-dialog :visible.sync="accountDialogVisible" width="390px" custom-class="wallet-dialog">
-      <div v-if="!web3.account">
-        <p class="wallet-title">Connect wallet</p>
-        <div
-          v-for="(item, id, i) in walletList"
-          :key="i"
-          @click="handleLogin(id)"
-          class="wallet-list"
-        >
-          <img
-            :src="
-              `https://raw.githubusercontent.com/bonustrack/lock/master/connectors/assets/${id}.png`
-            "
-            height="28"
-            width="28"
-          />
-          <span>{{ item.name }}</span>
-        </div>
-      </div>
-      <div v-else>
-        <p class="wallet-title">Account</p>
-        
-        <a
-          class="wallet-list"
-          :href="`https://etherscan.io/address/${web3.account}`"
-          target="_blank"
-        >
-          <div class="account">
-            <Avatar :address="web3.account" size="16" />
-            <span class="wallet-account" v-text="_shorten(web3.account)" />
-          </div>
-        </a>
-        <a href="javascript:;" @click="handleLogout" class="wallet-list sign-out">
-          Sign out
-        </a>
-      </div>
-    </el-dialog>
   </header>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+// import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -104,24 +65,6 @@ export default {
     }
   },
   computed: {
-    walletList() {
-      if (this.config && this.config.connectors) {
-        let wallet = this.config.connectors
-        let walletList = {}
-
-        for (const key in wallet) {
-          if (
-            wallet[key].name === 'MetaMask' ||
-            wallet[key].name === 'WalletConnect'
-          ) {
-            walletList[key] = wallet[key]
-          }
-        }
-        return walletList
-      } else {
-        return {}
-      }
-    },
     wrongNetwork() {
       // console.log('wrongNetwork', this.config, this.web3)
       return this.config.chainId !== this.web3.injectedChainId
@@ -134,22 +77,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['login', 'logout']),
-    async handleLogin(connector) {
-      try {
-        this.loading = true
-        await this.login(connector)
-        this.loading = false
-        this.accountDialogVisible = false
-      } catch (e) {
-        console.log('error login: ', e)
-      }
-    },
-    async handleLogout() {
-      await this.logout()
-      // this.$emit('close')
-      this.accountDialogVisible = false
-    },
+    showDialog() {
+      console.log(this.$store.state)
+      this.$store.commit('SET_LOGIN_MODAL_SHOW', true)
+    }
   },
 }
 </script>

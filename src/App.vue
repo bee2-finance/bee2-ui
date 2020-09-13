@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view />
+    <wallet-dialog v-model="loginModalShow" />
   </div>
 </template>
 
@@ -17,6 +18,14 @@ export default {
     }
   },
   computed: {
+    loginModalShow: {
+      get() {
+        return this.$store.state.ui.loginModalShow
+      },
+      set(v) {
+        this.$store.commit('SET_LOGIN_MODAL_SHOW', v)
+      }
+    },
     namespace() {
       return namespaces[this.key]
         ? namespaces[this.key]
