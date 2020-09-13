@@ -13,6 +13,7 @@
       <ul class="item">
         <li v-for="(item, name, index) in farmList" :key="index">
           <!-- <div class="label">3X</div> -->
+          <div class="badge-3x" v-if="item.hot"><img src="@/assets/svg/badge-3x.svg" height="35" alt="fire-badge"></div>
           <div class="kyOvTV" v-if="item.hot"></div>
           <div class="pool-container">
             <div class="item-logo">
@@ -243,46 +244,11 @@ export default {
     left: -2px;
     z-index: 0;
 }
-.label{
-  font-size:13px;
-  line-height:32px;
-  background:orange;
-  position:absolute;
-  right:0;
-  top:0;
-  z-index:11;
-  padding:0 2em;
-  transform-origin:left bottom;
-  transform:translate(29.29%,-100%) rotate(45deg);
-  text-indent:0;
-}
-
-.corner::before {
+.badge-3x {
   position: absolute;
-  top: 0.3rem;
-  right: -0.5rem;
-  z-index: 1;
-  padding-left: 0.625rem;
-  font-weight: bold;
-  line-height: 0px;
-  color: #ffffff;
-  height: 0px;
-  border: 0.9375rem solid #EC2027;
-  border-left-color: transparent;
-  content: "3X";
-  box-shadow: 0px 0.3125rem 0.3125rem -0.3125rem #000;
-  z-index: 11;
-}
-
-.corner::after {
-  content: "";
-  position: absolute;
-  top: 2.1875rem;
-  right: -0.5rem;
-  border: 0.25rem solid #89540c;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-  z-index: 11;
+  right: 10px;
+  top: 10px;
+  z-index: 12;
 }
 
 @media screen and (max-width: 900px) {
