@@ -58,10 +58,16 @@
               <p>HONEYs Earned</p>
             </div>
           </div>
+          <Progress 
+            class="progress"
+            :staked="totalStaked"
+            :honeyReward="farmId.honeyReward"
+            :symbol="farmId.symbol"
+          />
 
           <a
             href="javascript:;"
-            class="item-btn"
+            class="item-btn m-0"
             :disabled="honeyVal <= 0"
             @click="harvestHoneyFunc"
           >
@@ -101,13 +107,13 @@ import { mapActions, mapState } from 'vuex'
 import contract from '@/contract.json'
 import { formatUnitBalance } from '@/helpers/utils'
 import countdown from '@/components/countdown'
-// import Progress from '@/components/Progress'
+import Progress from '@/components/Progress'
 
 export default {
   name: 'Home',
   components: {
     countdown,
-    // Progress
+    Progress
   },
   data() {
     return {
@@ -118,6 +124,7 @@ export default {
       honeyVal: '0.0000',
       timer: null,
       balance: 'loading...',
+      totalStaked: 0
     }
   },
   computed: {
@@ -169,7 +176,7 @@ export default {
       'earned', 'harvest', 'unStake',
       'exit', 'balanceOf', 'approve',
       'approveState', 'stake', 'getEarnedHoney',
-      'harvestHoney'
+      'harvestHoney', 'totalSupply'
     ]),
 
 
@@ -219,6 +226,12 @@ export default {
         })
       console.log('balance', balanceOfCurrent)
       this.balance = this.formatUnit(balanceOfCurrent)
+      let res = await this.totalSupply({
+          contract: this.poolAddress,
+          abiName: this.poolAbiKey,
+          decimals: this.farmId.decimals,
+        })
+      this.totalStaked = res
 
     },
     // approve state
@@ -412,7 +425,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     width: 300px;
-    height: 340px;
+    height: 360px;
     margin: 30px 10px;
     list-style: none;
     text-align: center;
@@ -479,7 +492,12 @@ export default {
   }
 }
 
-
+.progress {
+  width: 100%;
+}
+.m-0 {
+  margin: 0!important;
+}
 .other-button {
   width: 50%;
   max-width: 300px;
