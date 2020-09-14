@@ -162,11 +162,11 @@ export default {
     this.getDataFunc()
     
     // keep polling
-    this.timer = setInterval(() => {
+    // this.timer = setInterval(() => {
       if (this.web3.account) {
         this.getDataFunc()
       }
-    }, 5000)
+    // }, 5000)
   },
   destroyed() {
     clearInterval(this.timer)
