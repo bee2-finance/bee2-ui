@@ -2,7 +2,10 @@
   <section class="voting">
     <Header></Header>
     <div class="container">
-      <p>🛠 In development...</p>
+      <p>
+        you click the link to vote.
+        <a href="https://snapshot.page/#/bee2">https://snapshot.page/#/bee2</a>
+      </p>
     </div>
     <Footer></Footer>
   </section>
@@ -29,7 +32,7 @@ export default {
   align-items: center;
   margin: 40px auto 3rem;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   p {
     font-size: 20px;
     margin: 100px 0 0;
