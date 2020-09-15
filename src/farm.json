@@ -6,7 +6,7 @@
     "decimals": 18,
     "hot": true,
     "starttime": 1600128000,
-    "honeyReward": 100000,
+    "honeyReward": 10000,
     "uniswap": "https://app.uniswap.org/#/add/ETH/0xcd4292701995f4707ae63fb1a48d80db2c5f04d4"
   },
   "ycrv_bee_uni_lp": {
@@ -16,7 +16,7 @@
     "decimals": 18,
     "hot": true,
     "starttime": 1600128000,
-    "honeyReward": 10000,
+    "honeyReward": 100000,
     "uniswap": "https://app.uniswap.org/#/add/0xcd4292701995f4707ae63fb1a48d80db2c5f04d4/0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8"
   },
   "weth": {
